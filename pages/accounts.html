@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinDash - Contas</title>
+
+  <link rel="stylesheet" href="../css/variables.css" />
+  <link rel="stylesheet" href="../css/globals.css" />
+  <link rel="stylesheet" href="../css/layout.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/forms.css" />
+  <link rel="stylesheet" href="../css/tables.css" />
+</head>
+<body>
+  <div class="app" id="app">
+    <aside class="sidebar">
+      <div>
+        <div class="brand">
+          <div class="brand-icon">F</div>
+          <div>
+            <h1>FinDash</h1>
+            <span>controle financeiro</span>
+          </div>
+        </div>
+
+        <nav class="nav-group">
+          <div class="nav-label">Principal</div>
+
+          <a class="nav-item" href="../index.html">
+            <div class="nav-left"><span>🏠</span><span>Dashboard</span></div>
+          </a>
+
+          <a class="nav-item active" href="./accounts.html">
+            <div class="nav-left"><span>💳</span><span>Carteiras</span></div>
+          </a>
+
+          <a class="nav-item" href="./transactions.html">
+            <div class="nav-left"><span>🧾</span><span>Transações</span></div>
+            <span class="nav-badge" id="transactionsBadge">0</span>
+          </a>
+
+          <div class="nav-label">Gestão</div>
+
+          <a class="nav-item" href="./goals.html">
+            <div class="nav-left"><span>🎯</span><span>Metas</span></div>
+          </a>
+
+          <a class="nav-item" href="./bills.html">
+            <div class="nav-left"><span>📅</span><span>Vencimentos</span></div>
+          </a>
+        </nav>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <h2>Contas e carteiras</h2>
+          <p class="page-subtitle">Gerencie contas bancárias, cartões, carteiras e investimentos.</p>
+        </div>
+
+        <div class="top-actions">
+          <a class="btn btn-secondary" href="../index.html">Voltar ao dashboard</a>
+        </div>
+      </header>
+
+      <section class="dashboard-grid">
+        <div class="left-grid">
+          <article class="card">
+            <div class="card-header">
+              <h3>Nova conta</h3>
+            </div>
+
+            <form id="accountForm" class="form-grid">
+              <div class="form-group">
+                <label for="accountName">Nome da conta</label>
+                <input type="text" id="accountName" name="accountName" placeholder="Ex.: Carteira principal" required />
+              </div>
+
+              <div class="form-group">
+                <label for="accountType">Tipo</label>
+                <select id="accountType" name="accountType" required>
+                  <option value="">Selecione</option>
+                  <option value="conta_corrente">Conta corrente</option>
+                  <option value="conta_digital">Conta digital</option>
+                  <option value="cartao_credito">Cartão de crédito</option>
+                  <option value="investimento">Investimento</option>
+                  <option value="carteira">Carteira</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="accountInstitution">Instituição</label>
+                <input type="text" id="accountInstitution" name="accountInstitution" placeholder="Ex.: Banco digital" />
+              </div>
+
+              <div class="form-group">
+                <label for="accountInitialBalance">Saldo inicial</label>
+                <input type="number" id="accountInitialBalance" name="accountInitialBalance" step="0.01" min="0" placeholder="0,00" required />
+              </div>
+
+              <div class="form-actions form-group-full">
+                <button class="btn btn-primary" type="submit">Salvar conta</button>
+                <button class="btn btn-secondary" type="reset">Limpar</button>
+              </div>
+            </form>
+          </article>
+        </div>
+
+        <div class="right-grid">
+          <article class="card">
+            <div class="card-header">
+              <h3>Visão geral</h3>
+            </div>
+
+            <div class="summary-stack">
+              <div class="summary-card">
+                <div class="summary-header">
+                  <h3>Total em contas</h3>
+                </div>
+                <div class="amount-lg" id="accountsTotalBalance">R$ 0,00</div>
+              </div>
+
+              <div class="summary-card">
+                <div class="summary-header">
+                  <h3>Quantidade</h3>
+                </div>
+                <div class="amount-lg" id="accountsTotalCount">0</div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <article class="card">
+          <div class="card-header">
+            <h3>Lista de contas</h3>
+          </div>
+
+          <div class="table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>Tipo</th>
+                  <th>Instituição</th>
+                  <th>Saldo</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="accountsTableBody">
+              </tbody>
+            </table>
+          </div>
+
+          <div id="accountsEmptyState" class="empty-state">
+            Nenhuma conta cadastrada até o momento.
+          </div>
+        </article>
+      </section>
+
+      <div class="mobile-nav">
+        <a href="../index.html">🏠</a>
+        <a href="./transactions.html">🧾</a>
+        <a href="./accounts.html">💳</a>
+        <a href="./goals.html">🎯</a>
+      </div>
+    </main>
+  </div>
+
+  <script src="../js/storage.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/seed.js"></script>
+  <script src="../js/accounts.js"></script>
+  <script src="../js/app.js"></script>
+</body>
+</html>

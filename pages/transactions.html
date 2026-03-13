@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinDash - Transações</title>
+
+  <link rel="stylesheet" href="../css/variables.css" />
+  <link rel="stylesheet" href="../css/globals.css" />
+  <link rel="stylesheet" href="../css/layout.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/forms.css" />
+  <link rel="stylesheet" href="../css/tables.css" />
+</head>
+<body>
+  <div class="app" id="app">
+    <aside class="sidebar">
+      <div>
+        <div class="brand">
+          <div class="brand-icon">F</div>
+          <div>
+            <h1>FinDash</h1>
+            <span>controle financeiro</span>
+          </div>
+        </div>
+
+        <nav class="nav-group">
+          <div class="nav-label">Principal</div>
+
+          <a class="nav-item" href="../index.html">
+            <div class="nav-left"><span>🏠</span><span>Dashboard</span></div>
+          </a>
+
+          <a class="nav-item" href="./accounts.html">
+            <div class="nav-left"><span>💳</span><span>Carteiras</span></div>
+          </a>
+
+          <a class="nav-item active" href="./transactions.html">
+            <div class="nav-left"><span>🧾</span><span>Transações</span></div>
+            <span class="nav-badge" id="transactionsBadge">0</span>
+          </a>
+
+          <div class="nav-label">Gestão</div>
+
+          <a class="nav-item" href="./goals.html">
+            <div class="nav-left"><span>🎯</span><span>Metas</span></div>
+          </a>
+
+          <a class="nav-item" href="./bills.html">
+            <div class="nav-left"><span>📅</span><span>Vencimentos</span></div>
+          </a>
+        </nav>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <h2>Painel de transações</h2>
+          <p class="page-subtitle">Cadastre, filtre, edite e acompanhe todas as movimentações.</p>
+        </div>
+
+        <div class="top-actions">
+          <a class="btn btn-secondary" href="../index.html">Voltar ao dashboard</a>
+        </div>
+      </header>
+
+      <section class="dashboard-grid">
+        <div class="left-grid">
+          <article class="card">
+            <div class="card-header">
+              <h3>Nova transação</h3>
+            </div>
+
+            <form id="transactionForm" class="form-grid">
+              <div class="form-group">
+                <label for="transactionType">Tipo</label>
+                <select id="transactionType" name="transactionType" required>
+                  <option value="">Selecione</option>
+                  <option value="income">Receita</option>
+                  <option value="expense">Despesa</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="transactionTitle">Título</label>
+                <input type="text" id="transactionTitle" name="transactionTitle" placeholder="Ex.: Supermercado Prime" required />
+              </div>
+
+              <div class="form-group">
+                <label for="transactionAmount">Valor</label>
+                <input type="number" id="transactionAmount" name="transactionAmount" step="0.01" min="0" placeholder="0,00" required />
+              </div>
+
+              <div class="form-group">
+                <label for="transactionCategory">Categoria</label>
+                <input type="text" id="transactionCategory" name="transactionCategory" placeholder="Ex.: Alimentação" required />
+              </div>
+
+              <div class="form-group">
+                <label for="transactionAccount">Conta</label>
+                <select id="transactionAccount" name="transactionAccount" required>
+                  <option value="">Selecione uma conta</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="transactionDate">Data</label>
+                <input type="date" id="transactionDate" name="transactionDate" required />
+              </div>
+
+              <div class="form-group form-group-full">
+                <label for="transactionDescription">Descrição</label>
+                <textarea id="transactionDescription" name="transactionDescription" rows="4" placeholder="Detalhes da movimentação"></textarea>
+              </div>
+
+              <div class="form-actions form-group-full">
+                <button class="btn btn-primary" type="submit">Salvar transação</button>
+                <button class="btn btn-secondary" type="reset">Limpar</button>
+              </div>
+            </form>
+          </article>
+        </div>
+
+        <div class="right-grid">
+          <article class="card">
+            <div class="card-header">
+              <h3>Resumo rápido</h3>
+            </div>
+
+            <div class="summary-stack">
+              <div class="summary-card">
+                <div class="summary-header">
+                  <h3>Receitas</h3>
+                </div>
+                <div class="amount-lg" id="transactionsIncomeTotal">R$ 0,00</div>
+              </div>
+
+              <div class="summary-card">
+                <div class="summary-header">
+                  <h3>Despesas</h3>
+                </div>
+                <div class="amount-lg" id="transactionsExpenseTotal">R$ 0,00</div>
+              </div>
+
+              <div class="summary-card">
+                <div class="summary-header">
+                  <h3>Saldo líquido</h3>
+                </div>
+                <div class="amount-lg" id="transactionsBalanceTotal">R$ 0,00</div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <article class="card">
+          <div class="card-header">
+            <h3>Filtros</h3>
+          </div>
+
+          <form id="transactionFilterForm" class="form-grid">
+            <div class="form-group">
+              <label for="filterType">Tipo</label>
+              <select id="filterType" name="filterType">
+                <option value="">Todos</option>
+                <option value="income">Receitas</option>
+                <option value="expense">Despesas</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="filterCategory">Categoria</label>
+              <input type="text" id="filterCategory" name="filterCategory" placeholder="Buscar por categoria" />
+            </div>
+
+            <div class="form-group">
+              <label for="filterDateStart">Data inicial</label>
+              <input type="date" id="filterDateStart" name="filterDateStart" />
+            </div>
+
+            <div class="form-group">
+              <label for="filterDateEnd">Data final</label>
+              <input type="date" id="filterDateEnd" name="filterDateEnd" />
+            </div>
+
+            <div class="form-actions form-group-full">
+              <button class="btn btn-primary" type="submit">Aplicar filtros</button>
+              <button class="btn btn-secondary" type="reset">Limpar filtros</button>
+            </div>
+          </form>
+        </article>
+      </section>
+
+      <section>
+        <article class="card">
+          <div class="card-header">
+            <h3>Lista de transações</h3>
+          </div>
+
+          <div class="table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Tipo</th>
+                  <th>Título</th>
+                  <th>Categoria</th>
+                  <th>Conta</th>
+                  <th>Data</th>
+                  <th>Valor</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="transactionsTableBody">
+              </tbody>
+            </table>
+          </div>
+
+          <div id="transactionsEmptyState" class="empty-state">
+            Nenhuma transação cadastrada até o momento.
+          </div>
+        </article>
+      </section>
+
+      <div class="mobile-nav">
+        <a href="../index.html">🏠</a>
+        <a href="./transactions.html">🧾</a>
+        <a href="./accounts.html">💳</a>
+        <a href="./goals.html">🎯</a>
+      </div>
+    </main>
+  </div>
+
+  <script src="../js/storage.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/seed.js"></script>
+  <script src="../js/transactions.js"></script>
+  <script src="../js/app.js"></script>
+</body>
+</html>
