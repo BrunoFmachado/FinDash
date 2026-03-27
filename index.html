@@ -3,7 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FinDash - Dashboard</title>
+  <title>FinDash - Dashboard Principal</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="./css/variables.css" />
   <link rel="stylesheet" href="./css/globals.css" />
@@ -11,7 +15,7 @@
   <link rel="stylesheet" href="./css/components.css" />
   <link rel="stylesheet" href="./css/dashboard.css" />
 </head>
-<body>
+<body id="appBody">
   <div class="app" id="app">
     <aside class="sidebar">
       <div>
@@ -25,26 +29,24 @@
 
         <nav class="nav-group">
           <div class="nav-label">Principal</div>
-
           <a class="nav-item active" href="./index.html">
             <div class="nav-left"><span>🏠</span><span>Dashboard</span></div>
           </a>
-
+          <a class="nav-item" href="./pages/overview.html">
+            <div class="nav-left"><span>📊</span><span>Visão Geral</span></div>
+          </a>
           <a class="nav-item" href="./pages/accounts.html">
             <div class="nav-left"><span>💳</span><span>Carteiras</span></div>
           </a>
-
           <a class="nav-item" href="./pages/transactions.html">
             <div class="nav-left"><span>🧾</span><span>Transações</span></div>
-            <span class="nav-badge" id="transactionsBadge">0</span>
+            <span class="nav-badge" id="txBadge">0</span>
           </a>
 
           <div class="nav-label">Gestão</div>
-
           <a class="nav-item" href="./pages/goals.html">
             <div class="nav-left"><span>🎯</span><span>Metas</span></div>
           </a>
-
           <a class="nav-item" href="./pages/bills.html">
             <div class="nav-left"><span>📅</span><span>Vencimentos</span></div>
           </a>
@@ -54,193 +56,132 @@
 
     <main class="main">
       <header class="topbar">
-        <div class="search">
+        <div class="search" style="border-radius: 99px; max-width: 350px;">
           <span>🔎</span>
-          <input type="text" placeholder="Buscar transações, contas ou metas" />
+          <input type="text" placeholder="Buscar transações, contas..." />
         </div>
 
         <div class="top-actions">
-          <button class="icon-btn" id="toggleBalance" type="button" title="Mostrar ou ocultar valores">👁️</button>
-
-          <div class="profile">
-            <div class="profile-avatar" id="profileAvatar">--</div>
+          <button class="icon-btn" style="border-radius: 50%;" id="toggleBalance" type="button" title="Mostrar/Ocultar">👁️</button>
+          <div class="profile" style="border-radius: 99px;">
+            <div class="profile-avatar" id="profileAvatar">BM</div>
             <div>
-              <strong id="profileName">---</strong>
-              <div class="muted" id="profilePlan">---</div>
+              <strong id="profileName">Bruno</strong>
+              <div class="muted" style="font-size: 0.8rem;" id="profilePlan">Conta Premium</div>
             </div>
           </div>
         </div>
       </header>
 
-      <section class="hero">
-        <div class="balance-card">
+      <section class="hero" style="margin-bottom: 24px;">
+        <div class="balance-card" style="box-shadow: 0 20px 50px rgba(37, 99, 235, 0.15);">
           <div class="eyebrow" id="heroLabel">● visão consolidada do mês</div>
-
-          <div class="balance-grid">
+          
+          <div class="balance-grid" style="align-items: center;">
             <div class="balance-main">
-              <div class="balance-title">Saldo disponível</div>
-              <div class="balance-value masked" id="balanceValue">R$ 0,00</div>
+              <div class="balance-title" id="greetingText">Saldo disponível</div>
+              <div class="balance-value masked" id="balanceValue" style="font-size: clamp(2.5rem, 5vw, 3.5rem);">R$ 0,00</div>
 
-              <div class="meta-row meta-row-light">
-                <span id="balanceGrowth">0% comparado ao mês anterior</span>
-                <span id="balanceUpdated">Atualizado ---</span>
+              <div class="meta-row meta-row-light" style="margin-bottom: 24px;">
+                <span id="balanceGrowth">Em todas as suas contas e carteiras</span>
               </div>
 
               <div class="balance-actions">
-                <a class="btn btn-primary" href="./pages/transactions.html">+ Nova transação</a>
-                <button class="btn btn-secondary" id="exportDataButton" type="button">Exportar dados</button>
-              </div>
-            </div>
-
-            <div class="mini-panel">
-              <h4>Resumo rápido</h4>
-              <div class="mini-list">
-                <div class="mini-item">
-                  <div><strong>Receitas</strong></div>
-                  <strong class="masked" id="quickIncome">R$ 0,00</strong>
-                </div>
-                <div class="mini-item">
-                  <div><strong>Despesas</strong></div>
-                  <strong class="masked" id="quickExpense">R$ 0,00</strong>
-                </div>
-                <div class="mini-item">
-                  <div><strong>Investimentos</strong></div>
-                  <strong class="masked" id="quickInvestment">R$ 0,00</strong>
-                </div>
+                <a class="btn btn-primary" href="./pages/transactions.html" style="border-radius: 99px; padding: 12px 24px; box-shadow: 0 8px 20px rgba(0,0,0,0.15);">+ Nova transação</a>
+                <a class="btn btn-secondary" href="./pages/overview.html" style="border-radius: 99px; padding: 12px 24px;">Ver detalhes</a>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="summary-stack">
-          <article class="summary-card">
-            <div class="summary-header">
-              <h3>Receita do mês</h3>
-              <span class="pill" id="incomeTrend">▲ 0%</span>
+        <article class="card" style="background: linear-gradient(180deg, var(--surface) 0%, #f8fafc 100%); display: flex; flex-direction: column; justify-content: space-between;">
+          <div class="card-header" style="margin-bottom: 10px;">
+            <h3 style="font-size: 1rem; color: var(--muted);">Resumo de Patrimônio</h3>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 16px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 12px; border-bottom: 1px solid var(--border);">
+              <span style="font-weight: 600; color: var(--text);"><span style="color: var(--primary); margin-right: 8px;">💳</span> Conta Corrente</span>
+              <strong class="masked" style="font-size: 1.1rem;">R$ 18.420,00</strong>
             </div>
-            <div class="amount-lg masked" id="incomeMonth">R$ 0,00</div>
-            <div class="meta-row">
-              <span id="incomeGoal">Meta mensal: R$ 0,00</span>
-              <span class="positive" id="incomeStatus">---</span>
+            <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 12px; border-bottom: 1px solid var(--border);">
+              <span style="font-weight: 600; color: var(--text);"><span style="color: var(--success); margin-right: 8px;">📈</span> Investimentos</span>
+              <strong class="masked" style="font-size: 1.1rem;">R$ 6.700,10</strong>
             </div>
-          </article>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-weight: 600; color: var(--text);"><span style="color: var(--danger); margin-right: 8px;">🧾</span> Fatura Atual</span>
+              <strong class="masked" style="font-size: 1.1rem; color: var(--danger);">- R$ 1.840,50</strong>
+            </div>
+          </div>
+        </article>
+      </section>
 
-          <article class="summary-card">
-            <div class="summary-header">
-              <h3>Despesas do mês</h3>
-              <span class="pill pill-danger" id="expenseTrend">● controle ativo</span>
+      <section style="margin-bottom: 32px;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;">
+          
+          <div style="background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.4)); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.8); border-radius: 28px; padding: 28px; box-shadow: 0 15px 35px rgba(34, 197, 94, 0.08); display: flex; align-items: center; justify-content: space-between; transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+            <div>
+              <div style="font-size: 0.85rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;">Receitas do Mês</div>
+              <div class="amount-lg masked" id="quickIncome" style="color: var(--success); margin: 0; font-size: 2.2rem;">R$ 0,00</div>
             </div>
-            <div class="amount-lg masked" id="expenseMonth">R$ 0,00</div>
-            <div class="meta-row">
-              <span id="expenseType">Fixas + variáveis</span>
-              <span class="negative" id="expenseStatus">- R$ 0,00 ontem</span>
+            <div style="width: 64px; height: 64px; border-radius: 20px; background: var(--success-soft); color: var(--success); display: grid; place-items: center; font-size: 1.8rem; box-shadow: inset 0 0 0 1px rgba(34,197,94,0.2);">💰</div>
+          </div>
+
+          <div style="background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.4)); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.8); border-radius: 28px; padding: 28px; box-shadow: 0 15px 35px rgba(239, 68, 68, 0.08); display: flex; align-items: center; justify-content: space-between; transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+            <div>
+              <div style="font-size: 0.85rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;">Despesas do Mês</div>
+              <div class="amount-lg masked" id="quickExpense" style="color: var(--text); margin: 0; font-size: 2.2rem;">R$ 0,00</div>
             </div>
-          </article>
+            <div style="width: 64px; height: 64px; border-radius: 20px; background: var(--danger-soft); color: var(--danger); display: grid; place-items: center; font-size: 1.8rem; box-shadow: inset 0 0 0 1px rgba(239,68,68,0.2);">📉</div>
+          </div>
+
         </div>
       </section>
 
-      <section class="dashboard-grid">
-        <div class="left-grid">
-          <div class="double-grid">
-            <article class="card">
-              <div class="card-header">
-                <h3>Despesas por categoria</h3>
-              </div>
-              <div class="donut-wrap">
-                <div class="donut donut-expenses">
-                  <div class="donut-center">
-                    <strong class="masked" id="expenseDonutTotal">R$ 0,00</strong>
-                    <span class="chart-caption">Total</span>
-                  </div>
+      <section>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 24px;">
+          
+          <article class="card" style="display: flex; flex-direction: column; padding: 36px; border-radius: 32px; background: linear-gradient(145deg, #ffffff 0%, #f4f7f9 100%); box-shadow: 0 20px 50px rgba(0,0,0,0.04);">
+            <div class="card-header" style="justify-content: center; margin-bottom: 30px;">
+              <h3 style="font-size: 1.3rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">Despesas por Categoria</h3>
+            </div>
+            <div class="donut-wrap" style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+              
+              <div style="position: relative; width: 280px; height: 280px; margin-bottom: 40px; display: grid; place-items: center;">
+                 <svg id="donutExpense" width="280" height="280" viewBox="0 0 280 280" style="position: absolute; inset:0;"></svg>
+                <div class="donut-center" style="z-index: 2;">
+                  <strong class="masked" id="expenseDonutTotal" style="font-size:1.8rem; font-weight:800; color: var(--text);">R$ 0,00</strong>
+                  <span class="chart-caption" style="font-size: 1rem; margin-top: 4px;">Total Saídas</span>
                 </div>
               </div>
-              <div class="legend" id="expenseLegend"></div>
-            </article>
+              
+              <div id="expenseLegend" style="width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 16px;"></div>
+            </div>
+          </article>
 
-            <article class="card">
-              <div class="card-header">
-                <h3>Fontes de receita</h3>
-              </div>
-              <div class="donut-wrap">
-                <div class="donut donut-income">
-                  <div class="donut-center">
-                    <strong class="masked" id="incomeDonutTotal">R$ 0,00</strong>
-                    <span class="chart-caption">Total</span>
-                  </div>
+          <article class="card" style="display: flex; flex-direction: column; padding: 36px; border-radius: 32px; background: linear-gradient(145deg, #ffffff 0%, #f4f7f9 100%); box-shadow: 0 20px 50px rgba(0,0,0,0.04);">
+            <div class="card-header" style="justify-content: center; margin-bottom: 30px;">
+              <h3 style="font-size: 1.3rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">Fontes de Receita</h3>
+            </div>
+            <div class="donut-wrap" style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+              
+              <div style="position: relative; width: 280px; height: 280px; margin-bottom: 40px; display: grid; place-items: center;">
+                <svg id="donutIncome" width="280" height="280" viewBox="0 0 280 280" style="position: absolute; inset:0;"></svg>
+                <div class="donut-center" style="z-index: 2;">
+                  <strong class="masked" id="incomeDonutTotal" style="font-size:1.8rem; font-weight:800; color: var(--text);">R$ 0,00</strong>
+                  <span class="chart-caption" style="font-size: 1rem; margin-top: 4px;">Total Entradas</span>
                 </div>
               </div>
-              <div class="legend" id="incomeLegend"></div>
-            </article>
-          </div>
-
-          <article class="card">
-            <div class="card-header">
-              <h3>Histórico (6 meses)</h3>
-            </div>
-            <div class="chart-area">
-              <div class="bars" id="barsContainer"></div>
-              <div class="meta-row chart-legend-row">
-                <span><span class="dot dot-blue"></span> Receitas</span>
-                <span><span class="dot dot-teal"></span> Despesas</span>
-              </div>
+              
+              <div id="incomeLegend" style="width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 16px;"></div>
             </div>
           </article>
 
-          <article class="card goal-card">
-            <div class="card-header">
-              <div>
-                <h3 id="goalTitle">---</h3>
-                <div class="muted-light" id="goalSubtitle">---</div>
-              </div>
-              <span class="pill pill-light" id="goalProgressLabel">0% concluído</span>
-            </div>
-
-            <div class="amount-lg amount-light masked" id="goalTotalText">R$ 0,00 / R$ 0,00</div>
-
-            <div class="progress progress-dark">
-              <span id="goalProgressBar" style="width: 0%;"></span>
-            </div>
-
-            <div class="goal-stats">
-              <div class="goal-stat">
-                <div class="muted-light">Aporte mensal</div>
-                <strong class="masked goal-stat-value" id="goalMonthlyContribution">R$ 0,00</strong>
-              </div>
-
-              <div class="goal-stat">
-                <div class="muted-light">Faltam</div>
-                <strong class="masked goal-stat-value" id="goalRemaining">R$ 0,00</strong>
-              </div>
-            </div>
-          </article>
-        </div>
-
-        <div class="right-grid">
-          <article class="card">
-            <div class="card-header">
-              <h3>Últimas transações</h3>
-            </div>
-            <div class="transactions" id="transactionsList"></div>
-          </article>
-
-          <article class="card">
-            <div class="card-header">
-              <h3>Contas e cartões</h3>
-            </div>
-            <div class="account-list" id="accountsList"></div>
-          </article>
-
-          <article class="card">
-            <div class="card-header">
-              <h3>Próximos vencimentos</h3>
-            </div>
-            <div class="transactions" id="billsList"></div>
-          </article>
         </div>
       </section>
 
       <div class="mobile-nav">
         <a href="./index.html">🏠</a>
+        <a href="./pages/overview.html">📊</a>
         <a href="./pages/transactions.html">🧾</a>
         <a href="./pages/accounts.html">💳</a>
         <a href="./pages/goals.html">🎯</a>
@@ -255,5 +196,97 @@
   <script src="./js/seed.js"></script>
   <script src="./js/dashboard.js"></script>
   <script src="./js/app.js"></script>
+
+  <script>
+    function buildDonut(svgId, segments) {
+      const svg = document.getElementById(svgId);
+      if(!svg) return;
+   
+      const cx = 140, cy = 140, r = 110, stroke = 24;
+      const circ = 2 * Math.PI * r; 
+      let offset = -Math.PI / 2;
+      
+      svg.innerHTML = ''; 
+      svg.parentElement.style.background = 'transparent';
+
+      const track = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      track.setAttribute('cx', cx); track.setAttribute('cy', cy); track.setAttribute('r', r);
+      track.setAttribute('fill', 'none'); track.setAttribute('stroke', 'rgba(100, 116, 139, 0.08)');
+      track.setAttribute('stroke-width', stroke + 2);
+      svg.appendChild(track);
+
+      segments.forEach(seg => {
+        const pct = seg.percent / 100; 
+        const dash = circ * pct; 
+        const gap = circ - dash;
+        const angle = offset * (180 / Math.PI);
+        
+        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        circle.setAttribute('cx', cx); 
+        circle.setAttribute('cy', cy); 
+        circle.setAttribute('r', r);
+        circle.setAttribute('fill', 'none'); 
+        circle.setAttribute('stroke', seg.color);
+        circle.setAttribute('stroke-width', stroke); 
+        circle.setAttribute('stroke-dasharray', `${dash} ${gap}`);
+        circle.setAttribute('stroke-dashoffset', -(circ * (offset + Math.PI / 2) / (2 * Math.PI)));
+        circle.setAttribute('transform', `rotate(${angle} ${cx} ${cy})`); 
+        circle.setAttribute('stroke-linecap', 'round');
+        
+        circle.style.transition = 'stroke-dasharray 1.5s cubic-bezier(0.4, 0, 0.2, 1)';
+        circle.style.filter = `drop-shadow(0 8px 16px ${seg.color}80)`; // 80 é a opacidade hex
+        
+        svg.appendChild(circle);
+        offset += pct * 2 * Math.PI;
+      });
+    }
+
+    function buildLegend(containerId, segments) {
+      const el = document.getElementById(containerId);
+      if(!el) return;
+      el.innerHTML = segments.map(s => `
+        <div style="display:flex; justify-content:space-between; align-items:center; padding: 12px 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow-sm);">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <div style="width:14px; height:14px; border-radius:6px; background:${s.color}; box-shadow: 0 4px 10px ${s.color}66;"></div>
+            <span style="font-size:0.9rem; font-weight:600; color:var(--text);">${s.name}</span>
+          </div>
+          <strong style="color:var(--text); font-size: 1rem;">${s.percent}%</strong>
+        </div>
+      `).join('');
+    }
+
+    let masked = false;
+    document.getElementById('toggleBalance').addEventListener('click', () => {
+      masked = !masked;
+      document.getElementById('appBody').classList.toggle('hide-balance', masked);
+      document.getElementById('toggleBalance').textContent = masked ? '👁 Ocultar' : '👁️ Mostrar';
+    });
+
+    const expSegs = [
+      { name:'Moradia', percent:42, color:'#2563eb' }, 
+      { name:'Cartão', percent:25, color:'#f59e0b' }, 
+      { name:'Lazer', percent:18, color:'#ef4444' }, 
+      { name:'Outros', percent:15, color:'#22c55e' }
+    ];
+    const incSegs = [
+      { name:'Salário', percent:56, color:'#14b8a6' }, 
+      { name:'Freelance', percent:27, color:'#f59e0b' }, 
+      { name:'Rendimentos', percent:17, color:'#22c55e' }
+    ];
+    
+    document.getElementById('balanceValue').textContent = "R$ 25.120,10";
+    document.getElementById('quickIncome').textContent = "R$ 1.350,00";
+    document.getElementById('quickExpense').textContent = "R$ 428,90";
+    document.getElementById('expenseDonutTotal').textContent = "R$ 428,90";
+    document.getElementById('incomeDonutTotal').textContent = "R$ 1.350,00";
+
+    setTimeout(() => {
+      buildDonut('donutExpense', expSegs); 
+      buildDonut('donutIncome', incSegs);
+    }, 100);
+    
+    buildLegend('expenseLegend', expSegs); 
+    buildLegend('incomeLegend', incSegs);
+  </script>
 </body>
 </html>

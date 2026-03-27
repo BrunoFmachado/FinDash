@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FinDash - Vencimentos</title>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
   <link rel="stylesheet" href="../css/variables.css" />
   <link rel="stylesheet" href="../css/globals.css" />
   <link rel="stylesheet" href="../css/layout.css" />
@@ -12,40 +16,38 @@
   <link rel="stylesheet" href="../css/forms.css" />
   <link rel="stylesheet" href="../css/tables.css" />
 </head>
-<body>
+<body id="appBody">
   <div class="app" id="app">
     <aside class="sidebar">
       <div>
         <div class="brand">
           <div class="brand-icon">F</div>
           <div>
-            <h1>FinDash</h1>
-            <span>controle financeiro</span>
+            <h1 id="brandName">FinDash</h1>
+            <span id="brandSubtitle">controle financeiro</span>
           </div>
         </div>
 
         <nav class="nav-group">
           <div class="nav-label">Principal</div>
-
           <a class="nav-item" href="../index.html">
             <div class="nav-left"><span>🏠</span><span>Dashboard</span></div>
           </a>
-
+          <a class="nav-item" href="./overview.html">
+            <div class="nav-left"><span>📊</span><span>Visão Geral</span></div>
+          </a>
           <a class="nav-item" href="./accounts.html">
             <div class="nav-left"><span>💳</span><span>Carteiras</span></div>
           </a>
-
           <a class="nav-item" href="./transactions.html">
             <div class="nav-left"><span>🧾</span><span>Transações</span></div>
-            <span class="nav-badge" id="transactionsBadge">0</span>
+            <span class="nav-badge" id="txBadge">0</span>
           </a>
 
           <div class="nav-label">Gestão</div>
-
           <a class="nav-item" href="./goals.html">
             <div class="nav-left"><span>🎯</span><span>Metas</span></div>
           </a>
-
           <a class="nav-item active" href="./bills.html">
             <div class="nav-left"><span>📅</span><span>Vencimentos</span></div>
           </a>
@@ -56,12 +58,20 @@
     <main class="main">
       <header class="topbar">
         <div>
-          <h2>Contas a pagar</h2>
-          <p class="page-subtitle">Cadastre vencimentos, acompanhe pendências e marque contas como pagas.</p>
+          <h2 style="font-size: 1.5rem;">Contas a pagar</h2>
+          <p class="muted page-subtitle">Cadastre vencimentos, acompanhe pendências e marque contas como pagas.</p>
         </div>
 
         <div class="top-actions">
-          <a class="btn btn-secondary" href="../index.html">Voltar ao dashboard</a>
+          <a class="btn btn-secondary" href="../index.html">Voltar</a>
+          <button class="icon-btn" id="toggleBalance" type="button" title="Mostrar/Ocultar">👁️</button>
+          <div class="profile">
+            <div class="profile-avatar" id="profileAvatar">BM</div>
+            <div>
+              <strong id="profileName">Bruno</strong>
+              <div class="muted" style="font-size: 0.8rem;" id="profilePlan">Conta Premium</div>
+            </div>
+          </div>
         </div>
       </header>
 
@@ -115,7 +125,7 @@
                 <div class="summary-header">
                   <h3>Em aberto</h3>
                 </div>
-                <div class="amount-lg" id="billsPendingTotal">R$ 0,00</div>
+                <div class="amount-lg masked" id="billsPendingTotal">R$ 0,00</div>
               </div>
 
               <div class="summary-card">
@@ -146,8 +156,7 @@
                   <th>Ações</th>
                 </tr>
               </thead>
-              <tbody id="billsTableBody">
-              </tbody>
+              <tbody id="billsTableBody"></tbody>
             </table>
           </div>
 
@@ -159,6 +168,7 @@
 
       <div class="mobile-nav">
         <a href="../index.html">🏠</a>
+        <a href="./overview.html">📊</a>
         <a href="./transactions.html">🧾</a>
         <a href="./accounts.html">💳</a>
         <a href="./goals.html">🎯</a>
@@ -171,5 +181,14 @@
   <script src="../js/seed.js"></script>
   <script src="../js/bills.js"></script>
   <script src="../js/app.js"></script>
+
+  <script>
+    let masked = false;
+    document.getElementById('toggleBalance').addEventListener('click', () => {
+      masked = !masked;
+      document.getElementById('appBody').classList.toggle('hide-balance', masked);
+      document.getElementById('toggleBalance').textContent = masked ? '👁 Ocultar' : '👁️ Mostrar';
+    });
+  </script>
 </body>
 </html>

@@ -3,49 +3,50 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FinDash - Transações</title>
+  <title>FinDash - Histórico de Transações</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="../css/variables.css" />
   <link rel="stylesheet" href="../css/globals.css" />
   <link rel="stylesheet" href="../css/layout.css" />
   <link rel="stylesheet" href="../css/components.css" />
   <link rel="stylesheet" href="../css/forms.css" />
-  <link rel="stylesheet" href="../css/tables.css" />
 </head>
-<body>
+<body id="appBody">
   <div class="app" id="app">
     <aside class="sidebar">
       <div>
         <div class="brand">
           <div class="brand-icon">F</div>
           <div>
-            <h1>FinDash</h1>
-            <span>controle financeiro</span>
+            <h1 id="brandName">FinDash</h1>
+            <span id="brandSubtitle">controle financeiro</span>
           </div>
         </div>
 
         <nav class="nav-group">
           <div class="nav-label">Principal</div>
-
           <a class="nav-item" href="../index.html">
             <div class="nav-left"><span>🏠</span><span>Dashboard</span></div>
           </a>
-
+          <a class="nav-item" href="./overview.html">
+            <div class="nav-left"><span>📊</span><span>Visão Geral</span></div>
+          </a>
           <a class="nav-item" href="./accounts.html">
             <div class="nav-left"><span>💳</span><span>Carteiras</span></div>
           </a>
-
           <a class="nav-item active" href="./transactions.html">
             <div class="nav-left"><span>🧾</span><span>Transações</span></div>
-            <span class="nav-badge" id="transactionsBadge">0</span>
+            <span class="nav-badge" id="txBadge">4</span>
           </a>
 
           <div class="nav-label">Gestão</div>
-
           <a class="nav-item" href="./goals.html">
             <div class="nav-left"><span>🎯</span><span>Metas</span></div>
           </a>
-
           <a class="nav-item" href="./bills.html">
             <div class="nav-left"><span>📅</span><span>Vencimentos</span></div>
           </a>
@@ -56,175 +57,148 @@
     <main class="main">
       <header class="topbar">
         <div>
-          <h2>Painel de transações</h2>
-          <p class="page-subtitle">Cadastre, filtre, edite e acompanhe todas as movimentações.</p>
+          <h2 style="font-size: 1.6rem; font-weight: 800; letter-spacing: -0.03em;">Histórico</h2>
+          <p class="muted page-subtitle">Seu fluxo de caixa detalhado e futurista.</p>
         </div>
 
         <div class="top-actions">
-          <a class="btn btn-secondary" href="../index.html">Voltar ao dashboard</a>
+          <button class="btn btn-secondary" style="border-radius: 99px;" type="button">📥 Exportar CSV</button>
+          <button class="icon-btn" style="border-radius: 50%;" id="toggleBalance" type="button" title="Mostrar/Ocultar">👁️</button>
+          <div class="profile" style="border-radius: 99px;">
+            <div class="profile-avatar" id="profileAvatar">BM</div>
+            <div>
+              <strong id="profileName">Bruno</strong>
+              <div class="muted" style="font-size: 0.8rem;">Premium</div>
+            </div>
+          </div>
         </div>
       </header>
 
-      <section class="dashboard-grid">
-        <div class="left-grid">
-          <article class="card">
-            <div class="card-header">
-              <h3>Nova transação</h3>
-            </div>
+      <section style="margin-bottom: 32px;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px;">
+          
+          <div style="background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.4)); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.8); border-radius: 28px; padding: 24px; box-shadow: 0 10px 40px rgba(34, 197, 94, 0.08); position: relative; overflow: hidden;">
+            <div style="width: 60px; height: 60px; background: radial-gradient(circle, var(--success-soft) 0%, transparent 70%); position: absolute; top: -10px; right: -10px; border-radius: 50%;"></div>
+            <div style="font-size: 0.85rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">Entradas do Mês</div>
+            <div class="amount-lg masked" style="color: var(--success); margin: 0; font-size: 2.2rem;">+ R$ 12.450,00</div>
+          </div>
 
-            <form id="transactionForm" class="form-grid">
-              <div class="form-group">
-                <label for="transactionType">Tipo</label>
-                <select id="transactionType" name="transactionType" required>
-                  <option value="">Selecione</option>
-                  <option value="income">Receita</option>
-                  <option value="expense">Despesa</option>
-                </select>
-              </div>
+          <div style="background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.4)); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.8); border-radius: 28px; padding: 24px; box-shadow: 0 10px 40px rgba(239, 68, 68, 0.08); position: relative; overflow: hidden;">
+            <div style="width: 60px; height: 60px; background: radial-gradient(circle, var(--danger-soft) 0%, transparent 70%); position: absolute; top: -10px; right: -10px; border-radius: 50%;"></div>
+            <div style="font-size: 0.85rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">Saídas do Mês</div>
+            <div class="amount-lg masked" style="color: var(--text); margin: 0; font-size: 2.2rem;">- R$ 5.320,50</div>
+          </div>
 
-              <div class="form-group">
-                <label for="transactionTitle">Título</label>
-                <input type="text" id="transactionTitle" name="transactionTitle" placeholder="Ex.: Supermercado Prime" required />
-              </div>
+          <div style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: white; border-radius: 28px; padding: 24px; box-shadow: 0 15px 35px rgba(15, 23, 42, 0.2); position: relative; overflow: hidden;">
+            <div style="width: 120px; height: 120px; background: radial-gradient(circle, rgba(37,99,235,0.4) 0%, transparent 70%); position: absolute; bottom: -30px; right: -30px; border-radius: 50%;"></div>
+            <div style="font-size: 0.85rem; font-weight: 700; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">Balanço Líquido</div>
+            <div class="amount-lg masked" style="color: white; margin: 0; font-size: 2.2rem;">R$ 7.129,50</div>
+          </div>
 
-              <div class="form-group">
-                <label for="transactionAmount">Valor</label>
-                <input type="number" id="transactionAmount" name="transactionAmount" step="0.01" min="0" placeholder="0,00" required />
-              </div>
-
-              <div class="form-group">
-                <label for="transactionCategory">Categoria</label>
-                <input type="text" id="transactionCategory" name="transactionCategory" placeholder="Ex.: Alimentação" required />
-              </div>
-
-              <div class="form-group">
-                <label for="transactionAccount">Conta</label>
-                <select id="transactionAccount" name="transactionAccount" required>
-                  <option value="">Selecione uma conta</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label for="transactionDate">Data</label>
-                <input type="date" id="transactionDate" name="transactionDate" required />
-              </div>
-
-              <div class="form-group form-group-full">
-                <label for="transactionDescription">Descrição</label>
-                <textarea id="transactionDescription" name="transactionDescription" rows="4" placeholder="Detalhes da movimentação"></textarea>
-              </div>
-
-              <div class="form-actions form-group-full">
-                <button class="btn btn-primary" type="submit">Salvar transação</button>
-                <button class="btn btn-secondary" type="reset">Limpar</button>
-              </div>
-            </form>
-          </article>
-        </div>
-
-        <div class="right-grid">
-          <article class="card">
-            <div class="card-header">
-              <h3>Resumo rápido</h3>
-            </div>
-
-            <div class="summary-stack">
-              <div class="summary-card">
-                <div class="summary-header">
-                  <h3>Receitas</h3>
-                </div>
-                <div class="amount-lg" id="transactionsIncomeTotal">R$ 0,00</div>
-              </div>
-
-              <div class="summary-card">
-                <div class="summary-header">
-                  <h3>Despesas</h3>
-                </div>
-                <div class="amount-lg" id="transactionsExpenseTotal">R$ 0,00</div>
-              </div>
-
-              <div class="summary-card">
-                <div class="summary-header">
-                  <h3>Saldo líquido</h3>
-                </div>
-                <div class="amount-lg" id="transactionsBalanceTotal">R$ 0,00</div>
-              </div>
-            </div>
-          </article>
         </div>
       </section>
 
       <section>
-        <article class="card">
-          <div class="card-header">
-            <h3>Filtros</h3>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 16px;">
+          <h3 style="font-size: 1.3rem; font-weight: 800; margin: 0;">Histórico Detalhado</h3>
+          
+          <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+            <input type="month" value="2026-03" style="height: 44px; padding: 0 18px; border-radius: 99px; border: 1px solid var(--border); background: var(--surface); color: var(--text); font-weight: 600; outline: none; box-shadow: var(--shadow-soft); box-sizing: border-box; cursor: pointer;" />
+            
+            <select style="height: 44px; padding: 0 18px; border-radius: 99px; border: 1px solid var(--border); background: var(--surface); color: var(--text); font-weight: 600; outline: none; box-shadow: var(--shadow-soft); box-sizing: border-box; cursor: pointer;">
+              <option value="all">Filtros Avançados</option>
+              <option value="income">Só Entradas</option>
+              <option value="expense">Só Saídas</option>
+            </select>
+
+            <button class="btn btn-primary" style="height: 44px; margin: 0; border-radius: 99px; padding: 0 24px; box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25); display: flex; align-items: center;">+ Novo Registro</button>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+
+          <div style="display: flex; align-items: center; gap: 12px; margin-top: 10px;">
+            <div style="font-size: 0.75rem; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px;">Hoje, 27 de Março</div>
+            <div style="flex: 1; height: 1px; background: linear-gradient(90deg, var(--border), transparent);"></div>
           </div>
 
-          <form id="transactionFilterForm" class="form-grid">
-            <div class="form-group">
-              <label for="filterType">Tipo</label>
-              <select id="filterType" name="filterType">
-                <option value="">Todos</option>
-                <option value="income">Receitas</option>
-                <option value="expense">Despesas</option>
-              </select>
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 20px 24px; background: var(--surface); border-radius: 24px; border: 1px solid var(--border); box-shadow: var(--shadow-soft); transition: transform 0.3s, box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 15px 35px rgba(0,0,0,0.06)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='var(--shadow-soft)';">
+            
+            <div style="display: flex; align-items: center; gap: 20px;">
+              <div style="width: 54px; height: 54px; border-radius: 18px; background: var(--danger-soft); color: var(--danger); display: grid; place-items: center; font-size: 1.4rem; box-shadow: inset 0 0 0 1px rgba(239,68,68,0.2);">🛒</div>
+              <div>
+                <strong style="font-size: 1.1rem; color: var(--text); display: block; margin-bottom: 6px;">Supermercado Prime</strong>
+                <div style="display: flex; gap: 8px; align-items: center;">
+                  <span class="pill pill-light" style="background: rgba(100,116,139,0.1); color: var(--muted); padding: 4px 10px; font-size: 0.7rem;">Alimentação</span>
+                  <span class="pill pill-light" style="background: rgba(100,116,139,0.1); color: var(--muted); padding: 4px 10px; font-size: 0.7rem;">Cartão de Crédito</span>
+                  <span style="font-size: 0.75rem; color: var(--muted); margin-left: 4px;">14:30</span>
+                </div>
+              </div>
             </div>
 
-            <div class="form-group">
-              <label for="filterCategory">Categoria</label>
-              <input type="text" id="filterCategory" name="filterCategory" placeholder="Buscar por categoria" />
+            <div style="text-align: right;">
+              <strong class="masked" style="font-size: 1.3rem; font-weight: 800; color: var(--text); letter-spacing: -0.02em;">- R$ 248,90</strong>
+              <div style="margin-top: 6px; display: flex; gap: 8px; justify-content: flex-end;">
+                <button style="font-size: 0.85rem; color: var(--primary); font-weight: 600;">Editar</button>
+              </div>
             </div>
-
-            <div class="form-group">
-              <label for="filterDateStart">Data inicial</label>
-              <input type="date" id="filterDateStart" name="filterDateStart" />
-            </div>
-
-            <div class="form-group">
-              <label for="filterDateEnd">Data final</label>
-              <input type="date" id="filterDateEnd" name="filterDateEnd" />
-            </div>
-
-            <div class="form-actions form-group-full">
-              <button class="btn btn-primary" type="submit">Aplicar filtros</button>
-              <button class="btn btn-secondary" type="reset">Limpar filtros</button>
-            </div>
-          </form>
-        </article>
-      </section>
-
-      <section>
-        <article class="card">
-          <div class="card-header">
-            <h3>Lista de transações</h3>
           </div>
 
-          <div class="table-wrapper">
-            <table class="data-table">
-              <thead>
-                <tr>
-                  <th>Tipo</th>
-                  <th>Título</th>
-                  <th>Categoria</th>
-                  <th>Conta</th>
-                  <th>Data</th>
-                  <th>Valor</th>
-                  <th>Ações</th>
-                </tr>
-              </thead>
-              <tbody id="transactionsTableBody">
-              </tbody>
-            </table>
+          <div style="display: flex; align-items: center; gap: 12px; margin-top: 10px;">
+            <div style="font-size: 0.75rem; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px;">Ontem, 26 de Março</div>
+            <div style="flex: 1; height: 1px; background: linear-gradient(90deg, var(--border), transparent);"></div>
           </div>
 
-          <div id="transactionsEmptyState" class="empty-state">
-            Nenhuma transação cadastrada até o momento.
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 20px 24px; background: var(--surface); border-radius: 24px; border: 1px solid var(--border); box-shadow: var(--shadow-soft); transition: transform 0.3s, box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 15px 35px rgba(34, 197, 94, 0.1)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='var(--shadow-soft)';">
+            
+            <div style="display: flex; align-items: center; gap: 20px;">
+              <div style="width: 54px; height: 54px; border-radius: 18px; background: var(--success-soft); color: var(--success); display: grid; place-items: center; font-size: 1.4rem; box-shadow: inset 0 0 0 1px rgba(34,197,94,0.2);">💼</div>
+              <div>
+                <strong style="font-size: 1.1rem; color: var(--text); display: block; margin-bottom: 6px;">Pagamento Cliente (Projeto X)</strong>
+                <div style="display: flex; gap: 8px; align-items: center;">
+                  <span class="pill pill-light" style="background: rgba(34,197,94,0.1); color: var(--success); padding: 4px 10px; font-size: 0.7rem;">Freelance</span>
+                  <span class="pill pill-light" style="background: rgba(100,116,139,0.1); color: var(--muted); padding: 4px 10px; font-size: 0.7rem;">Conta Digital Nubank</span>
+                  <span style="font-size: 0.75rem; color: var(--muted); margin-left: 4px;">09:15</span>
+                </div>
+              </div>
+            </div>
+
+            <div style="text-align: right;">
+              <strong class="masked" style="font-size: 1.3rem; font-weight: 800; color: var(--success); letter-spacing: -0.02em;">+ R$ 1.350,00</strong>
+              <div style="margin-top: 6px; display: flex; gap: 8px; justify-content: flex-end;">
+                <button style="font-size: 0.85rem; color: var(--primary); font-weight: 600;">Editar</button>
+              </div>
+            </div>
           </div>
-        </article>
+
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 20px 24px; background: var(--surface); border-radius: 24px; border: 1px solid var(--border); box-shadow: var(--shadow-soft); transition: transform 0.3s, box-shadow 0.3s;" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 15px 35px rgba(0,0,0,0.06)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='var(--shadow-soft)';">
+            
+            <div style="display: flex; align-items: center; gap: 20px;">
+              <div style="width: 54px; height: 54px; border-radius: 18px; background: var(--surface-soft); color: var(--primary); display: grid; place-items: center; font-size: 1.4rem; box-shadow: inset 0 0 0 1px rgba(37,99,235,0.2);">⛽</div>
+              <div>
+                <strong style="font-size: 1.1rem; color: var(--text); display: block; margin-bottom: 6px;">Posto Ipiranga</strong>
+                <div style="display: flex; gap: 8px; align-items: center;">
+                  <span class="pill pill-light" style="background: rgba(100,116,139,0.1); color: var(--muted); padding: 4px 10px; font-size: 0.7rem;">Transporte</span>
+                  <span class="pill pill-light" style="background: rgba(100,116,139,0.1); color: var(--muted); padding: 4px 10px; font-size: 0.7rem;">Cartão de Crédito</span>
+                  <span style="font-size: 0.75rem; color: var(--muted); margin-left: 4px;">18:45</span>
+                </div>
+              </div>
+            </div>
+
+            <div style="text-align: right;">
+              <strong class="masked" style="font-size: 1.3rem; font-weight: 800; color: var(--text); letter-spacing: -0.02em;">- R$ 180,00</strong>
+              <div style="margin-top: 6px; display: flex; gap: 8px; justify-content: flex-end;">
+                <button style="font-size: 0.85rem; color: var(--primary); font-weight: 600;">Editar</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
       </section>
 
       <div class="mobile-nav">
         <a href="../index.html">🏠</a>
+        <a href="./overview.html">📊</a>
         <a href="./transactions.html">🧾</a>
         <a href="./accounts.html">💳</a>
         <a href="./goals.html">🎯</a>
@@ -232,10 +206,20 @@
     </main>
   </div>
 
+  <button class="fab" id="fab" type="button">+</button>
+
   <script src="../js/storage.js"></script>
   <script src="../js/utils.js"></script>
   <script src="../js/seed.js"></script>
-  <script src="../js/transactions.js"></script>
   <script src="../js/app.js"></script>
+
+  <script>
+    let masked = false;
+    document.getElementById('toggleBalance').addEventListener('click', () => {
+      masked = !masked;
+      document.getElementById('appBody').classList.toggle('hide-balance', masked);
+      document.getElementById('toggleBalance').textContent = masked ? '👁 Ocultar' : '👁️ Mostrar';
+    });
+  </script>
 </body>
 </html>

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinDash - Visão Geral</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../css/variables.css" />
+  <link rel="stylesheet" href="../css/globals.css" />
+  <link rel="stylesheet" href="../css/layout.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/dashboard.css" />
+</head>
+<body id="appBody">
+  <div class="app" id="app">
+    <aside class="sidebar">
+      <div>
+        <div class="brand">
+          <div class="brand-icon">F</div>
+          <div>
+            <h1 id="brandName">FinDash</h1>
+            <span id="brandSubtitle">controle financeiro</span>
+          </div>
+        </div>
+
+        <nav class="nav-group">
+          <div class="nav-label">Principal</div>
+          <a class="nav-item" href="../index.html">
+            <div class="nav-left"><span>🏠</span><span>Dashboard</span></div>
+          </a>
+          <a class="nav-item active" href="./overview.html">
+            <div class="nav-left"><span>📊</span><span>Visão Geral</span></div>
+          </a>
+          <a class="nav-item" href="./accounts.html">
+            <div class="nav-left"><span>💳</span><span>Carteiras</span></div>
+          </a>
+          <a class="nav-item" href="./transactions.html">
+            <div class="nav-left"><span>🧾</span><span>Transações</span></div>
+            <span class="nav-badge" id="txBadge">0</span>
+          </a>
+
+          <div class="nav-label">Gestão</div>
+          <a class="nav-item" href="./goals.html">
+            <div class="nav-left"><span>🎯</span><span>Metas</span></div>
+          </a>
+          <a class="nav-item" href="./bills.html">
+            <div class="nav-left"><span>📅</span><span>Vencimentos</span></div>
+          </a>
+        </nav>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <h2 style="font-size: 1.5rem;">Visão Geral</h2>
+          <p class="muted page-subtitle">Resumo completo do seu patrimônio e saúde financeira.</p>
+        </div>
+
+        <div class="top-actions">
+          <button class="btn btn-secondary" type="button">Baixar Relatório</button>
+          <button class="icon-btn" id="toggleBalance" type="button" title="Mostrar/Ocultar">👁️</button>
+          <div class="profile">
+            <div class="profile-avatar" id="profileAvatar">BM</div>
+            <div>
+              <strong id="profileName">Bruno</strong>
+              <div class="muted" style="font-size: 0.8rem;" id="profilePlan">Conta Premium</div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section style="margin-bottom: 22px;">
+        <div class="summary-row" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 22px;">
+          <article class="summary-card">
+            <div class="summary-header">
+              <h3>Patrimônio Líquido</h3>
+              <span class="pill pill-light" style="background: var(--primary); color: white;">Total</span>
+            </div>
+            <div class="amount-lg masked">R$ 31.820,20</div>
+            <div class="meta-row">
+              <span>Soma de todas as contas e investimentos</span>
+            </div>
+          </article>
+
+          <article class="summary-card">
+            <div class="summary-header">
+              <h3>Receitas (Acumulado)</h3>
+              <span class="pill" style="color: var(--success); background: var(--success-soft);">▲ 12%</span>
+            </div>
+            <div class="amount-lg masked" style="color: var(--success);">R$ 45.300,00</div>
+            <div class="meta-row">
+              <span>Neste ano</span>
+            </div>
+          </article>
+
+          <article class="summary-card">
+            <div class="summary-header">
+              <h3>Despesas (Acumulado)</h3>
+              <span class="pill pill-danger">▼ 3%</span>
+            </div>
+            <div class="amount-lg masked" style="color: var(--danger);">R$ 22.150,00</div>
+            <div class="meta-row">
+              <span>Neste ano</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="dashboard-grid">
+        <div class="left-grid">
+          <article class="card">
+            <div class="card-header">
+              <h3>Evolução Mensal</h3>
+            </div>
+            <div class="chart-area">
+              <div class="bars" id="barsContainer">
+                <div class="bar-col">
+                  <span class="muted" style="font-size: 0.75rem;">Out</span>
+                  <div class="bar-pair">
+                    <div class="bar" style="height: 60%;"></div>
+                    <div class="bar secondary" style="height: 40%;"></div>
+                  </div>
+                </div>
+                <div class="bar-col">
+                  <span class="muted" style="font-size: 0.75rem;">Nov</span>
+                  <div class="bar-pair">
+                    <div class="bar" style="height: 70%;"></div>
+                    <div class="bar secondary" style="height: 50%;"></div>
+                  </div>
+                </div>
+                <div class="bar-col">
+                  <span class="muted" style="font-size: 0.75rem;">Dez</span>
+                  <div class="bar-pair">
+                    <div class="bar" style="height: 90%;"></div>
+                    <div class="bar secondary" style="height: 80%;"></div>
+                  </div>
+                </div>
+                <div class="bar-col">
+                  <span class="muted" style="font-size: 0.75rem;">Jan</span>
+                  <div class="bar-pair">
+                    <div class="bar" style="height: 50%;"></div>
+                    <div class="bar secondary" style="height: 45%;"></div>
+                  </div>
+                </div>
+                <div class="bar-col">
+                  <span class="muted" style="font-size: 0.75rem;">Fev</span>
+                  <div class="bar-pair">
+                    <div class="bar" style="height: 80%;"></div>
+                    <div class="bar secondary" style="height: 30%;"></div>
+                  </div>
+                </div>
+                <div class="bar-col">
+                  <span class="muted" style="font-size: 0.75rem;">Mar</span>
+                  <div class="bar-pair">
+                    <div class="bar" style="height: 85%;"></div>
+                    <div class="bar secondary" style="height: 20%;"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="meta-row chart-legend-row">
+                <span><span class="dot dot-blue"></span> Receitas</span>
+                <span><span class="dot dot-teal"></span> Despesas</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-header">
+              <h3>Distribuição por Carteira</h3>
+              <a href="./accounts.html" class="btn btn-secondary" style="padding: 8px 12px; font-size: 0.8rem;">Gerenciar</a>
+            </div>
+            <div class="mini-list" style="margin-top: 10px;">
+              <div class="mini-item" style="padding: 12px 0; border-bottom: 1px solid var(--border);">
+                <div>
+                  <strong style="display: block;">Carteira Principal</strong>
+                  <span class="muted" style="font-size: 0.8rem;">Conta Corrente</span>
+                </div>
+                <strong class="masked">R$ 18.420,00</strong>
+              </div>
+              <div class="mini-item" style="padding: 12px 0; border-bottom: 1px solid var(--border);">
+                <div>
+                  <strong style="display: block;">Investimentos Selic</strong>
+                  <span class="muted" style="font-size: 0.8rem;">Renda Fixa</span>
+                </div>
+                <strong class="masked">R$ 6.700,10</strong>
+              </div>
+              <div class="mini-item" style="padding: 12px 0;">
+                <div>
+                  <strong style="display: block;">Reserva de Emergência</strong>
+                  <span class="muted" style="font-size: 0.8rem;">Poupança</span>
+                </div>
+                <strong class="masked">R$ 6.700,10</strong>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="right-grid">
+          <article class="card goal-card">
+            <div class="card-header">
+              <div>
+                <h3>Viagem Férias</h3>
+                <div class="muted-light" style="font-size: 0.85rem;">Dezembro 2024</div>
+              </div>
+              <span class="pill pill-light">45% concluído</span>
+            </div>
+            <div class="amount-lg amount-light masked">R$ 4.500,00 / R$ 10.000</div>
+            <div class="progress progress-dark">
+              <span style="width: 45%;"></span>
+            </div>
+            <div class="goal-stats">
+              <div class="goal-stat">
+                <div class="muted-light" style="font-size: 0.8rem;">Faltam</div>
+                <strong class="masked goal-stat-value">R$ 5.500,00</strong>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-header">
+              <h3>Atenção</h3>
+            </div>
+            <div class="transactions">
+              <div class="transaction">
+                <div class="transaction-icon transaction-danger">⚠️</div>
+                <div style="flex: 1;">
+                  <strong style="font-size: 0.95rem; display:block;">Fatura do Cartão</strong>
+                  <span class="muted" style="font-size: 0.8rem;">Vence hoje</span>
+                </div>
+                <strong class="masked" style="color: var(--danger);">- R$ 1.840,50</strong>
+              </div>
+              <div class="transaction">
+                <div class="transaction-icon transaction-orange">📅</div>
+                <div style="flex: 1;">
+                  <strong style="font-size: 0.95rem; display:block;">Condomínio</strong>
+                  <span class="muted" style="font-size: 0.8rem;">Vence em 3 dias</span>
+                </div>
+                <strong class="masked" style="color: var(--danger);">- R$ 650,00</strong>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <div class="mobile-nav">
+        <a href="../index.html">🏠</a>
+        <a href="./overview.html">📊</a>
+        <a href="./transactions.html">🧾</a>
+        <a href="./accounts.html">💳</a>
+        <a href="./goals.html">🎯</a>
+      </div>
+    </main>
+  </div>
+
+  <button class="fab" id="fab" type="button">+</button>
+
+  <script src="../js/storage.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/seed.js"></script>
+  <script src="../js/app.js"></script>
+
+  <script>
+    let masked = false;
+    document.getElementById('toggleBalance').addEventListener('click', () => {
+      masked = !masked;
+      document.getElementById('appBody').classList.toggle('hide-balance', masked);
+      document.getElementById('toggleBalance').textContent = masked ? '👁 Ocultar' : '👁️ Mostrar';
+    });
+  </script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FinDash - Metas</title>
+  <title>FinDash - Contas</title>
 
   <link rel="stylesheet" href="../css/variables.css" />
   <link rel="stylesheet" href="../css/globals.css" />
@@ -31,7 +31,11 @@
             <div class="nav-left"><span>🏠</span><span>Dashboard</span></div>
           </a>
 
-          <a class="nav-item" href="./accounts.html">
+          <a class="nav-item" href="./overview.html">
+            <div class="nav-left"><span>📊</span><span>Visão Geral</span></div>
+          </a>
+
+          <a class="nav-item active" href="./accounts.html">
             <div class="nav-left"><span>💳</span><span>Carteiras</span></div>
           </a>
 
@@ -42,7 +46,7 @@
 
           <div class="nav-label">Gestão</div>
 
-          <a class="nav-item active" href="./goals.html">
+          <a class="nav-item" href="./goals.html">
             <div class="nav-left"><span>🎯</span><span>Metas</span></div>
           </a>
 
@@ -56,8 +60,8 @@
     <main class="main">
       <header class="topbar">
         <div>
-          <h2>Metas financeiras</h2>
-          <p class="page-subtitle">Acompanhe objetivos, aportes e progresso das metas.</p>
+          <h2>Contas e carteiras</h2>
+          <p class="page-subtitle">Gerencie contas bancárias, cartões, carteiras e investimentos.</p>
         </div>
 
         <div class="top-actions">
@@ -69,37 +73,39 @@
         <div class="left-grid">
           <article class="card">
             <div class="card-header">
-              <h3>Nova meta</h3>
+              <h3>Nova conta</h3>
             </div>
 
-            <form id="goalForm" class="form-grid">
+            <form id="accountForm" class="form-grid">
               <div class="form-group">
-                <label for="goalTitle">Título</label>
-                <input type="text" id="goalTitle" name="goalTitle" placeholder="Ex.: Reserva de emergência" required />
+                <label for="accountName">Nome da conta</label>
+                <input type="text" id="accountName" name="accountName" placeholder="Ex.: Carteira principal" required />
               </div>
 
               <div class="form-group">
-                <label for="goalTarget">Valor alvo</label>
-                <input type="number" id="goalTarget" name="goalTarget" step="0.01" min="0" placeholder="0,00" required />
+                <label for="accountType">Tipo</label>
+                <select id="accountType" name="accountType" required>
+                  <option value="">Selecione</option>
+                  <option value="conta_corrente">Conta corrente</option>
+                  <option value="conta_digital">Conta digital</option>
+                  <option value="cartao_credito">Cartão de crédito</option>
+                  <option value="investimento">Investimento</option>
+                  <option value="carteira">Carteira</option>
+                </select>
               </div>
 
               <div class="form-group">
-                <label for="goalCurrent">Valor atual</label>
-                <input type="number" id="goalCurrent" name="goalCurrent" step="0.01" min="0" placeholder="0,00" required />
+                <label for="accountInstitution">Instituição</label>
+                <input type="text" id="accountInstitution" name="accountInstitution" placeholder="Ex.: Banco digital" />
               </div>
 
               <div class="form-group">
-                <label for="goalMonthlyContribution">Aporte mensal</label>
-                <input type="number" id="goalMonthlyContribution" name="goalMonthlyContribution" step="0.01" min="0" placeholder="0,00" required />
-              </div>
-
-              <div class="form-group form-group-full">
-                <label for="goalDeadline">Prazo</label>
-                <input type="date" id="goalDeadline" name="goalDeadline" required />
+                <label for="accountInitialBalance">Saldo inicial</label>
+                <input type="number" id="accountInitialBalance" name="accountInitialBalance" step="0.01" min="0" placeholder="0,00" required />
               </div>
 
               <div class="form-actions form-group-full">
-                <button class="btn btn-primary" type="submit">Salvar meta</button>
+                <button class="btn btn-primary" type="submit">Salvar conta</button>
                 <button class="btn btn-secondary" type="reset">Limpar</button>
               </div>
             </form>
@@ -109,22 +115,22 @@
         <div class="right-grid">
           <article class="card">
             <div class="card-header">
-              <h3>Resumo</h3>
+              <h3>Visão geral</h3>
             </div>
 
             <div class="summary-stack">
               <div class="summary-card">
                 <div class="summary-header">
-                  <h3>Total de metas</h3>
+                  <h3>Total em contas</h3>
                 </div>
-                <div class="amount-lg" id="goalsCount">0</div>
+                <div class="amount-lg" id="accountsTotalBalance">R$ 0,00</div>
               </div>
 
               <div class="summary-card">
                 <div class="summary-header">
-                  <h3>Total acumulado</h3>
+                  <h3>Quantidade</h3>
                 </div>
-                <div class="amount-lg" id="goalsCurrentTotal">R$ 0,00</div>
+                <div class="amount-lg" id="accountsTotalCount">0</div>
               </div>
             </div>
           </article>
@@ -134,19 +140,33 @@
       <section>
         <article class="card">
           <div class="card-header">
-            <h3>Lista de metas</h3>
+            <h3>Lista de contas</h3>
           </div>
 
-          <div id="goalsList" class="account-list"></div>
+          <div class="table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>Tipo</th>
+                  <th>Instituição</th>
+                  <th>Saldo</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="accountsTableBody"></tbody>
+            </table>
+          </div>
 
-          <div id="goalsEmptyState" class="empty-state">
-            Nenhuma meta cadastrada até o momento.
+          <div id="accountsEmptyState" class="empty-state">
+            Nenhuma conta cadastrada até o momento.
           </div>
         </article>
       </section>
 
       <div class="mobile-nav">
         <a href="../index.html">🏠</a>
+        <a href="./overview.html">📊</a>
         <a href="./transactions.html">🧾</a>
         <a href="./accounts.html">💳</a>
         <a href="./goals.html">🎯</a>
@@ -157,7 +177,7 @@
   <script src="../js/storage.js"></script>
   <script src="../js/utils.js"></script>
   <script src="../js/seed.js"></script>
-  <script src="../js/goals.js"></script>
+  <script src="../js/accounts.js"></script>
   <script src="../js/app.js"></script>
 </body>
 </html>
