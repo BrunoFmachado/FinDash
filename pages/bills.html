@@ -8,49 +8,34 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-
   <link rel="stylesheet" href="../css/variables.css" />
   <link rel="stylesheet" href="../css/globals.css" />
   <link rel="stylesheet" href="../css/layout.css" />
   <link rel="stylesheet" href="../css/components.css" />
   <link rel="stylesheet" href="../css/forms.css" />
-  <link rel="stylesheet" href="../css/tables.css" />
+  <link rel="stylesheet" href="../css/transactions.css" />
+  <link rel="stylesheet" href="../css/bills.css" />
 </head>
 <body id="appBody">
-  <div class="app" id="app">
+  <div class="app">
     <aside class="sidebar">
       <div>
         <div class="brand">
           <div class="brand-icon">F</div>
-          <div>
-            <h1 id="brandName">FinDash</h1>
-            <span id="brandSubtitle">controle financeiro</span>
-          </div>
+          <div><h1>FinDash</h1><span>controle financeiro</span></div>
         </div>
-
         <nav class="nav-group">
           <div class="nav-label">Principal</div>
-          <a class="nav-item" href="../index.html">
-            <div class="nav-left"><span>🏠</span><span>Dashboard</span></div>
-          </a>
-          <a class="nav-item" href="./overview.html">
-            <div class="nav-left"><span>📊</span><span>Visão Geral</span></div>
-          </a>
-          <a class="nav-item" href="./accounts.html">
-            <div class="nav-left"><span>💳</span><span>Carteiras</span></div>
-          </a>
+          <a class="nav-item" href="../index.html"><div class="nav-left"><span>⌂</span><span>Dashboard</span></div></a>
+          <a class="nav-item" href="./overview.html"><div class="nav-left"><span>▥</span><span>Visão Geral</span></div></a>
+          <a class="nav-item" href="./accounts.html"><div class="nav-left"><span>▣</span><span>Carteiras</span></div></a>
           <a class="nav-item" href="./transactions.html">
-            <div class="nav-left"><span>🧾</span><span>Transações</span></div>
-            <span class="nav-badge" id="txBadge">0</span>
+            <div class="nav-left"><span>↕</span><span>Transações</span></div>
+            <span class="nav-badge" id="transactionsBadge">0</span>
           </a>
-
           <div class="nav-label">Gestão</div>
-          <a class="nav-item" href="./goals.html">
-            <div class="nav-left"><span>🎯</span><span>Metas</span></div>
-          </a>
-          <a class="nav-item active" href="./bills.html">
-            <div class="nav-left"><span>📅</span><span>Vencimentos</span></div>
-          </a>
+          <a class="nav-item" href="./goals.html"><div class="nav-left"><span>◎</span><span>Metas</span></div></a>
+          <a class="nav-item active" href="./bills.html"><div class="nav-left"><span>□</span><span>Vencimentos</span></div></a>
         </nav>
       </div>
     </aside>
@@ -58,137 +43,136 @@
     <main class="main">
       <header class="topbar">
         <div>
-          <h2 style="font-size: 1.5rem;">Contas a pagar</h2>
-          <p class="muted page-subtitle">Cadastre vencimentos, acompanhe pendências e marque contas como pagas.</p>
+          <h2>Vencimentos</h2>
+          <p class="page-subtitle">Cadastre contas reais e transforme pagamentos em despesas automaticamente.</p>
         </div>
-
         <div class="top-actions">
-          <a class="btn btn-secondary" href="../index.html">Voltar</a>
-          <button class="icon-btn" id="toggleBalance" type="button" title="Mostrar/Ocultar">👁️</button>
-          <div class="profile">
-            <div class="profile-avatar" id="profileAvatar">BM</div>
-            <div>
-              <strong id="profileName">Bruno</strong>
-              <div class="muted" style="font-size: 0.8rem;" id="profilePlan">Conta Premium</div>
-            </div>
-          </div>
+          <button class="icon-btn" id="toggleBalance" type="button" title="Ocultar valores" aria-label="Ocultar valores">◉</button>
+          <button class="btn btn-primary" id="openBillForm" type="button">+ Novo vencimento</button>
         </div>
       </header>
 
-      <section class="dashboard-grid">
-        <div class="left-grid">
-          <article class="card">
-            <div class="card-header">
-              <h3>Novo vencimento</h3>
-            </div>
-
-            <form id="billForm" class="form-grid">
-              <div class="form-group">
-                <label for="billTitle">Título</label>
-                <input type="text" id="billTitle" name="billTitle" placeholder="Ex.: Energia elétrica" required />
-              </div>
-
-              <div class="form-group">
-                <label for="billAmount">Valor</label>
-                <input type="number" id="billAmount" name="billAmount" step="0.01" min="0" placeholder="0,00" required />
-              </div>
-
-              <div class="form-group">
-                <label for="billDueDate">Vencimento</label>
-                <input type="date" id="billDueDate" name="billDueDate" required />
-              </div>
-
-              <div class="form-group">
-                <label for="billStatus">Status</label>
-                <select id="billStatus" name="billStatus" required>
-                  <option value="false">Pendente</option>
-                  <option value="true">Pago</option>
-                </select>
-              </div>
-
-              <div class="form-actions form-group-full">
-                <button class="btn btn-primary" type="submit">Salvar vencimento</button>
-                <button class="btn btn-secondary" type="reset">Limpar</button>
-              </div>
-            </form>
-          </article>
-        </div>
-
-        <div class="right-grid">
-          <article class="card">
-            <div class="card-header">
-              <h3>Resumo</h3>
-            </div>
-
-            <div class="summary-stack">
-              <div class="summary-card">
-                <div class="summary-header">
-                  <h3>Em aberto</h3>
-                </div>
-                <div class="amount-lg masked" id="billsPendingTotal">R$ 0,00</div>
-              </div>
-
-              <div class="summary-card">
-                <div class="summary-header">
-                  <h3>Quantidade pendente</h3>
-                </div>
-                <div class="amount-lg" id="billsPendingCount">0</div>
-              </div>
-            </div>
-          </article>
-        </div>
+      <section class="transaction-summary" aria-label="Resumo dos vencimentos">
+        <article class="transaction-summary-card transaction-summary-expense">
+          <span>Total em aberto</span>
+          <strong class="masked" id="billsPendingTotal">R$ 0,00</strong>
+          <small id="billsPendingCount">0 pendentes</small>
+        </article>
+        <article class="transaction-summary-card bill-summary-overdue">
+          <span>Total vencido</span>
+          <strong class="masked" id="billsOverdueTotal">R$ 0,00</strong>
+          <small id="billsOverdueCount">0 atrasados</small>
+        </article>
+        <article class="transaction-summary-card transaction-summary-balance">
+          <span>Total pago</span>
+          <strong class="masked" id="billsPaidTotal">R$ 0,00</strong>
+          <small id="billsPaidCount">0 pagos</small>
+        </article>
       </section>
 
-      <section>
-        <article class="card">
+      <section class="transaction-content">
+        <article class="card transaction-form-card" id="billFormCard">
           <div class="card-header">
-            <h3>Lista de vencimentos</h3>
+            <div>
+              <h3 id="billFormTitle">Cadastrar vencimento</h3>
+              <p class="page-subtitle">Use os dados da conta que você realmente precisa pagar.</p>
+            </div>
+            <button class="transaction-close" id="closeBillForm" type="button" aria-label="Fechar formulário">×</button>
           </div>
 
-          <div class="table-wrapper">
-            <table class="data-table">
-              <thead>
-                <tr>
-                  <th>Título</th>
-                  <th>Valor</th>
-                  <th>Vencimento</th>
-                  <th>Status</th>
-                  <th>Ações</th>
-                </tr>
-              </thead>
-              <tbody id="billsTableBody"></tbody>
-            </table>
-          </div>
+          <form id="billForm" class="form-grid">
+            <div class="form-group">
+              <label for="billTitle">Descrição</label>
+              <input id="billTitle" type="text" maxlength="80" placeholder="Ex.: Energia elétrica" required />
+            </div>
+            <div class="form-group">
+              <label for="billAmount">Valor</label>
+              <input id="billAmount" type="number" min="0.01" step="0.01" placeholder="0,00" required />
+            </div>
+            <div class="form-group">
+              <label for="billDueDate">Data de vencimento</label>
+              <input id="billDueDate" type="date" required />
+            </div>
+            <div class="form-group">
+              <label for="billCategory">Categoria</label>
+              <input id="billCategory" type="text" maxlength="50" list="billCategories" placeholder="Ex.: Moradia" required />
+              <datalist id="billCategories">
+                <option value="Moradia"></option>
+                <option value="Alimentação"></option>
+                <option value="Transporte"></option>
+                <option value="Saúde"></option>
+                <option value="Educação"></option>
+                <option value="Assinaturas"></option>
+                <option value="Impostos"></option>
+                <option value="Outros"></option>
+              </datalist>
+            </div>
+            <div class="form-group">
+              <label for="billAccount">Conta usada no pagamento</label>
+              <select id="billAccount"><option value="">Não vinculada</option></select>
+            </div>
+            <div class="form-group">
+              <label for="billStatus">Status</label>
+              <select id="billStatus" required>
+                <option value="false">Pendente</option>
+                <option value="true">Pago</option>
+              </select>
+            </div>
+            <div class="form-group" id="billPaidDateGroup">
+              <label for="billPaidDate">Data do pagamento</label>
+              <input id="billPaidDate" type="date" />
+            </div>
+            <div class="form-group form-group-full">
+              <label for="billDescription">Observação <span class="muted">(opcional)</span></label>
+              <textarea id="billDescription" rows="3" maxlength="250" placeholder="Código, parcela ou outra informação útil."></textarea>
+            </div>
+            <div class="form-actions form-group-full">
+              <button class="btn btn-primary" type="submit">Salvar vencimento</button>
+              <button class="btn btn-secondary" type="reset">Limpar</button>
+            </div>
+          </form>
+        </article>
 
-          <div id="billsEmptyState" class="empty-state">
-            Nenhum vencimento cadastrado até o momento.
+        <article class="card">
+          <div class="transaction-history-header">
+            <div>
+              <h3>Contas cadastradas</h3>
+              <p class="page-subtitle" id="billsResultText">Nenhum vencimento encontrado.</p>
+            </div>
+            <div class="transaction-filters">
+              <input id="billFilterMonth" type="month" aria-label="Filtrar por mês" />
+              <select id="billFilterStatus" aria-label="Filtrar por status">
+                <option value="">Todos os status</option>
+                <option value="pending">Pendentes</option>
+                <option value="overdue">Atrasados</option>
+                <option value="paid">Pagos</option>
+              </select>
+              <button class="btn btn-secondary" id="clearBillFilters" type="button">Limpar filtros</button>
+            </div>
+          </div>
+          <div class="bill-list" id="billsList"></div>
+          <div class="empty-state" id="billsEmptyState">
+            <strong>Nenhum vencimento cadastrado</strong>
+            <p>Adicione sua primeira conta a pagar.</p>
           </div>
         </article>
       </section>
 
       <div class="mobile-nav">
-        <a href="../index.html">🏠</a>
-        <a href="./overview.html">📊</a>
-        <a href="./transactions.html">🧾</a>
-        <a href="./accounts.html">💳</a>
-        <a href="./goals.html">🎯</a>
+        <a href="../index.html" aria-label="Dashboard">⌂</a>
+        <a href="./overview.html" aria-label="Visão geral">▥</a>
+        <a href="./transactions.html" aria-label="Transações">↕</a>
+        <a href="./accounts.html" aria-label="Carteiras">▣</a>
+        <a href="./goals.html" aria-label="Metas">◎</a>
       </div>
     </main>
   </div>
 
-  <script src="../js/storage.js"></script>
-  <script src="../js/utils.js"></script>
-  <script src="../js/seed.js"></script>
-  <script src="../js/bills.js"></script>
-  <script src="../js/app.js"></script>
-
-  <script>
-    let masked = false;
-    document.getElementById('toggleBalance').addEventListener('click', () => {
-      masked = !masked;
-      document.getElementById('appBody').classList.toggle('hide-balance', masked);
-      document.getElementById('toggleBalance').textContent = masked ? '👁 Ocultar' : '👁️ Mostrar';
-    });
-  </script>
+  <button class="fab" id="fab" type="button" aria-label="Novo vencimento">+</button>
+  <script src="../js/core/storage.js"></script>
+  <script src="../js/shared/formatters.js"></script>
+  <script src="../js/shared/utils.js"></script>
+  <script src="../js/core/app.js"></script>
+  <script src="../js/features/bills/bills.js"></script>
 </body>
 </html>

@@ -1,0 +1,119 @@
+.bill-summary-overdue {
+  color: var(--warning);
+}
+
+.bill-list {
+  display: grid;
+  gap: 12px;
+}
+
+.bill-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 18px;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-left: 5px solid var(--warning);
+  border-radius: 20px;
+  background: #ffffff;
+  transition: var(--transition);
+}
+
+.bill-item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-soft);
+}
+
+.bill-item-overdue {
+  border-left-color: var(--danger);
+}
+
+.bill-item-paid {
+  border-left-color: var(--success);
+  opacity: 0.8;
+}
+
+.bill-item-main {
+  min-width: 0;
+}
+
+.bill-item-title {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text);
+  font-size: 1.05rem;
+}
+
+.bill-item-meta {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  color: var(--muted);
+  font-size: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.bill-status {
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: #fff7ed;
+  color: var(--warning);
+  font-weight: 700;
+}
+
+.bill-item-overdue .bill-status {
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+.bill-item-paid .bill-status {
+  background: var(--success-soft);
+  color: var(--success);
+}
+
+.bill-item-side {
+  min-width: 210px;
+  text-align: right;
+}
+
+.bill-item-side > strong {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+}
+
+.bill-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 9px;
+  flex-wrap: wrap;
+}
+
+.bill-action {
+  color: var(--primary);
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.bill-action-danger {
+  color: var(--danger);
+}
+
+@media (max-width: 700px) {
+  .bill-item {
+    grid-template-columns: 1fr;
+  }
+
+  .bill-item-side {
+    min-width: 0;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    text-align: left;
+  }
+
+  .bill-actions {
+    justify-content: flex-start;
+  }
+}

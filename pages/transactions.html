@@ -169,12 +169,13 @@
 
             <form class="transaction-filters" id="transactionFilterForm">
               <input id="filterSearch" type="search" placeholder="Buscar descrição ou categoria" aria-label="Buscar transação" />
-              <input id="filterMonth" type="month" aria-label="Filtrar por mês" />
               <select id="filterType" aria-label="Filtrar por tipo">
                 <option value="">Todas</option>
                 <option value="income">Receitas</option>
                 <option value="expense">Despesas</option>
               </select>
+              <input id="filterDateStart" type="date" aria-label="Data inicial" title="Data inicial" />
+              <input id="filterDateEnd" type="date" aria-label="Data final" title="Data final" />
               <button class="btn btn-secondary" type="button" id="clearFilters">Limpar filtros</button>
             </form>
           </div>

@@ -1,5 +1,6 @@
 const transactionState = {
-  month: "",
+  dateStart: "",
+  dateEnd: "",
   type: "",
   search: ""
 };
@@ -75,14 +76,15 @@ function getFilteredTransactions() {
   const normalizedSearch = transactionState.search.trim().toLocaleLowerCase("pt-BR");
 
   return sortTransactions(getTransactions()).filter((transaction) => {
-    const matchesMonth = !transactionState.month
-      || String(transaction.date || "").startsWith(transactionState.month);
+    const transactionDate = String(transaction.date || "");
+    const matchesStart = !transactionState.dateStart || transactionDate >= transactionState.dateStart;
+    const matchesEnd = !transactionState.dateEnd || transactionDate <= transactionState.dateEnd;
     const matchesType = !transactionState.type || transaction.type === transactionState.type;
     const searchableText = `${transaction.title || ""} ${transaction.category || ""} ${transaction.description || ""}`
       .toLocaleLowerCase("pt-BR");
     const matchesSearch = !normalizedSearch || searchableText.includes(normalizedSearch);
 
-    return matchesMonth && matchesType && matchesSearch;
+    return matchesStart && matchesEnd && matchesType && matchesSearch;
   });
 }
 
@@ -306,12 +308,25 @@ function exportTransactionsCsv() {
 }
 
 function setupFilters() {
-  const monthInput = document.getElementById("filterMonth");
+  const dateStartInput = document.getElementById("filterDateStart");
+  const dateEndInput = document.getElementById("filterDateEnd");
   const typeInput = document.getElementById("filterType");
   const searchInput = document.getElementById("filterSearch");
 
-  monthInput.addEventListener("change", () => {
-    transactionState.month = monthInput.value;
+  dateStartInput.addEventListener("change", () => {
+    transactionState.dateStart = dateStartInput.value;
+    if (dateEndInput.value && dateStartInput.value > dateEndInput.value) {
+      dateEndInput.value = dateStartInput.value;
+      transactionState.dateEnd = dateStartInput.value;
+    }
+    renderTransactions();
+  });
+  dateEndInput.addEventListener("change", () => {
+    transactionState.dateEnd = dateEndInput.value;
+    if (dateStartInput.value && dateEndInput.value < dateStartInput.value) {
+      dateStartInput.value = dateEndInput.value;
+      transactionState.dateStart = dateEndInput.value;
+    }
     renderTransactions();
   });
   typeInput.addEventListener("change", () => {
@@ -324,10 +339,12 @@ function setupFilters() {
   });
   document.getElementById("transactionFilterForm").addEventListener("submit", (event) => event.preventDefault());
   document.getElementById("clearFilters").addEventListener("click", () => {
-    transactionState.month = "";
+    transactionState.dateStart = "";
+    transactionState.dateEnd = "";
     transactionState.type = "";
     transactionState.search = "";
-    monthInput.value = "";
+    dateStartInput.value = "";
+    dateEndInput.value = "";
     typeInput.value = "";
     searchInput.value = "";
     renderTransactions();
