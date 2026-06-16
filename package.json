@@ -1,0 +1,26 @@
+{
+  "name": "findash",
+  "version": "1.0.0",
+  "description": "Projeto web para controle financeiro pessoal, desenvolvido com **HTML**, **CSS** e **JavaScript puro**.",
+  "main": "server.cjs",
+  "scripts": {
+    "start": "node server.cjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BrunoFmachado/FinDash.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/BrunoFmachado/FinDash/issues"
+  },
+  "homepage": "https://github.com/BrunoFmachado/FinDash#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.2.1",
+    "mysql2": "^3.22.5"
+  }
+}

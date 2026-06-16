@@ -30,24 +30,30 @@
 
         <nav class="nav-group">
           <div class="nav-label">Principal</div>
+
           <a class="nav-item" href="../index.html">
             <div class="nav-left"><span>⌂</span><span>Dashboard</span></div>
           </a>
+
           <a class="nav-item" href="./overview.html">
             <div class="nav-left"><span>▥</span><span>Visão Geral</span></div>
           </a>
+
           <a class="nav-item" href="./accounts.html">
             <div class="nav-left"><span>▣</span><span>Carteiras</span></div>
           </a>
+
           <a class="nav-item active" href="./transactions.html">
             <div class="nav-left"><span>↕</span><span>Transações</span></div>
             <span class="nav-badge" id="transactionsBadge">0</span>
           </a>
 
           <div class="nav-label">Gestão</div>
+
           <a class="nav-item" href="./goals.html">
             <div class="nav-left"><span>◎</span><span>Metas</span></div>
           </a>
+
           <a class="nav-item" href="./bills.html">
             <div class="nav-left"><span>□</span><span>Vencimentos</span></div>
           </a>
@@ -59,33 +65,60 @@
       <header class="topbar">
         <div>
           <h2>Transações financeiras</h2>
-          <p class="page-subtitle">Registre suas movimentações e acompanhe seu histórico real.</p>
+          <p class="page-subtitle">Cadastre receitas, registre saídas e acompanhe previsto x realizado.</p>
         </div>
 
         <div class="top-actions">
           <button class="btn btn-secondary" id="exportTransactions" type="button">Exportar CSV</button>
           <button class="icon-btn" id="toggleBalance" type="button" title="Ocultar valores" aria-label="Ocultar valores">◉</button>
-          <button class="btn btn-primary" id="openTransactionForm" type="button">+ Nova transação</button>
+          <button class="btn btn-secondary" id="openIncomeForm" type="button">+ Cadastrar receita</button>
+          <button class="btn btn-primary" id="openExpenseForm" type="button">+ Registrar saída</button>
         </div>
       </header>
 
-      <section class="transaction-summary" aria-label="Resumo do mês">
+      <section class="transaction-summary" aria-label="Resumo realizado">
         <article class="transaction-summary-card transaction-summary-income">
-          <span>Entradas no período</span>
+          <span>Receitas realizadas</span>
           <strong class="masked" id="transactionsIncomeTotal">R$ 0,00</strong>
-          <small id="incomeCount">0 receitas</small>
+          <small id="incomeCount">0 receitas realizadas</small>
         </article>
 
         <article class="transaction-summary-card transaction-summary-expense">
-          <span>Saídas no período</span>
+          <span>Saídas realizadas</span>
           <strong class="masked" id="transactionsExpenseTotal">R$ 0,00</strong>
-          <small id="expenseCount">0 despesas</small>
+          <small id="expenseCount">0 saídas realizadas</small>
         </article>
 
         <article class="transaction-summary-card transaction-summary-balance">
-          <span>Balanço líquido</span>
+          <span>Balanço realizado</span>
           <strong class="masked" id="transactionsBalanceTotal">R$ 0,00</strong>
-          <small>Entradas menos saídas</small>
+          <small>Receitas realizadas menos saídas realizadas</small>
+        </article>
+      </section>
+
+      <section class="transaction-summary" aria-label="Controle previsto e realizado">
+        <article class="transaction-summary-card transaction-summary-income">
+          <span>Receitas previstas</span>
+          <strong class="masked" id="plannedIncomeTotal">R$ 0,00</strong>
+          <small id="plannedIncomeCount">0 receitas previstas</small>
+        </article>
+
+        <article class="transaction-summary-card transaction-summary-expense">
+          <span>Saídas previstas</span>
+          <strong class="masked" id="plannedExpenseTotal">R$ 0,00</strong>
+          <small id="plannedExpenseCount">0 saídas previstas</small>
+        </article>
+
+        <article class="transaction-summary-card transaction-summary-balance">
+          <span>Balanço previsto</span>
+          <strong class="masked" id="plannedBalanceTotal">R$ 0,00</strong>
+          <small>Receitas previstas menos saídas previstas</small>
+        </article>
+
+        <article class="transaction-summary-card transaction-summary-balance">
+          <span>Diferença do planejamento</span>
+          <strong class="masked" id="planningDifferenceTotal">R$ 0,00</strong>
+          <small id="planningDifferenceText">Realizado comparado ao previsto</small>
         </article>
       </section>
 
@@ -94,8 +127,9 @@
           <div class="card-header">
             <div>
               <h3 id="transactionFormTitle">Registrar transação</h3>
-              <p class="page-subtitle">Preencha com os dados reais da movimentação.</p>
+              <p class="page-subtitle">Informe se o valor é previsto ou já foi realizado.</p>
             </div>
+
             <button class="transaction-close" id="closeTransactionForm" type="button" aria-label="Fechar formulário">×</button>
           </div>
 
@@ -105,7 +139,15 @@
               <select id="transactionType" required>
                 <option value="">Selecione</option>
                 <option value="income">Receita</option>
-                <option value="expense">Despesa</option>
+                <option value="expense">Saída financeira</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="transactionStatus">Situação</label>
+              <select id="transactionStatus" required>
+                <option value="realized">Realizado</option>
+                <option value="planned">Previsto</option>
               </select>
             </div>
 
@@ -122,6 +164,7 @@
             <div class="form-group">
               <label for="transactionCategory">Categoria</label>
               <input id="transactionCategory" type="text" maxlength="50" list="transactionCategories" placeholder="Ex.: Alimentação" required />
+
               <datalist id="transactionCategories">
                 <option value="Alimentação"></option>
                 <option value="Moradia"></option>
@@ -163,19 +206,28 @@
         <article class="card transaction-history-card">
           <div class="transaction-history-header">
             <div>
-              <h3>Histórico de transações</h3>
+              <h3>Histórico financeiro</h3>
               <p class="page-subtitle" id="historyResultText">Nenhuma movimentação encontrada.</p>
             </div>
 
             <form class="transaction-filters" id="transactionFilterForm">
               <input id="filterSearch" type="search" placeholder="Buscar descrição ou categoria" aria-label="Buscar transação" />
+
               <select id="filterType" aria-label="Filtrar por tipo">
                 <option value="">Todas</option>
                 <option value="income">Receitas</option>
-                <option value="expense">Despesas</option>
+                <option value="expense">Saídas</option>
               </select>
+
+              <select id="filterStatus" aria-label="Filtrar por situação">
+                <option value="">Previstas e realizadas</option>
+                <option value="realized">Realizadas</option>
+                <option value="planned">Previstas</option>
+              </select>
+
               <input id="filterDateStart" type="date" aria-label="Data inicial" title="Data inicial" />
               <input id="filterDateEnd" type="date" aria-label="Data final" title="Data final" />
+
               <button class="btn btn-secondary" type="button" id="clearFilters">Limpar filtros</button>
             </form>
           </div>
@@ -184,7 +236,7 @@
 
           <div class="empty-state" id="transactionsEmptyState">
             <strong>Nenhuma transação encontrada</strong>
-            <p>Registre sua primeira movimentação para começar o histórico.</p>
+            <p>Cadastre uma receita ou registre uma saída financeira para começar o controle.</p>
           </div>
         </article>
       </section>
