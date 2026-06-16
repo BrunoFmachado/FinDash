@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinDash - Visão Geral</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../css/variables.css" />
+  <link rel="stylesheet" href="../css/globals.css" />
+  <link rel="stylesheet" href="../css/layout.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/dashboard.css" />
+</head>
+<body id="appBody">
+  <div class="app" id="app">
+     <aside class="sidebar">
+      <div>
+        <div class="brand">
+          <div class="brand-icon">F</div>
+          <div>
+            <h1>FinDash</h1>
+            <span>controle financeiro</span>
+          </div>
+        </div>
+
+        <nav class="nav-group">
+          <div class="nav-label">Principal</div>
+          <a class="nav-item" href="./home.html">
+            <span>Dashboard</span>
+          </a>
+          <a class="nav-item active" href="./overview.html">
+            <span>Visão Geral</span>
+          </a>
+          <a class="nav-item" href="./accounts.html">
+            <span>Carteiras</span>
+          </a>
+          <a class="nav-item" href="./transactions.html">
+            <span>Transações</span>
+            
+          </a>
+
+          <div class="nav-label">Gestão</div>
+          <a class="nav-item" href="./goals.html">
+            <span>Metas</span>
+          </a>
+          <a class="nav-item" href="./bills.html">
+            <span>Vencimentos</span>
+          </a>
+        </nav>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <h2 style="font-size: 1.5rem;">Visão Geral</h2>
+          <p class="muted page-subtitle">Resumo completo do seu patrimônio e da saúde financeira.</p>
+        </div>
+
+        <div class="top-actions">
+          <button class="btn btn-secondary" id="exportDashboard" type="button">Baixar relatório</button>
+          <button id="toggleBalance" class="icon-btn" type="button" title="Ocultar valores">
+  <span id="eyeContainer"></span>
+</button>
+          <a class="profile" href="./perfil.html" style="text-decoration: none; color: inherit;">
+            <div class="profile-avatar" id="profileAvatar">--</div>
+            <div>
+              <strong id="profileName">Carregando...</strong>
+              <div class="muted" style="font-size: 0.8rem;">Minha conta</div>
+            </div>
+          </a>
+        </div>
+      </header>
+
+      <section style="margin-bottom: 22px;">
+        <div class="summary-row" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 22px;">
+          <article class="summary-card">
+            <div class="summary-header">
+              <h3>Patrimônio líquido</h3>
+              <span class="pill pill-light" style="background: var(--primary); color: white;">Total</span>
+            </div>
+            <div class="amount-lg masked" id="overviewNetWorth">R$ 0,00</div>
+            <div class="meta-row"><span>Soma das contas e carteiras</span></div>
+          </article>
+
+          <article class="summary-card">
+            <div class="summary-header">
+              <h3>Receitas</h3>
+              <span class="pill" style="color: var(--success); background: var(--success-soft);">Mês</span>
+            </div>
+            <div class="amount-lg masked" id="overviewIncome" style="color: var(--success);">R$ 0,00</div>
+            <div class="meta-row"><span>Realizado no mês atual</span></div>
+          </article>
+
+          <article class="summary-card">
+            <div class="summary-header">
+              <h3>Despesas</h3>
+              <span class="pill pill-danger">Mês</span>
+            </div>
+            <div class="amount-lg masked" id="overviewExpense" style="color: var(--danger);">R$ 0,00</div>
+            <div class="meta-row"><span>Realizado no mês atual</span></div>
+          </article>
+
+          <article class="summary-card">
+            <div class="summary-header">
+              <h3>Previsto x realizado</h3>
+            </div>
+            <div class="meta-row">
+              <span>Previsto</span>
+              <strong class="masked" id="overviewPredicted">R$ 0,00</strong>
+            </div>
+            <div class="meta-row">
+              <span>Realizado</span>
+              <strong class="masked" id="overviewRealized">R$ 0,00</strong>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="dashboard-grid">
+        <div class="left-grid">
+          <article class="card">
+            <div class="card-header">
+              <h3>Evolução mensal</h3>
+            </div>
+            <div class="chart-area">
+              <div class="bars" id="barsContainer"></div>
+              <div class="meta-row chart-legend-row">
+                <span><span class="dot dot-blue"></span> Receitas</span>
+                <span><span class="dot dot-teal"></span> Despesas</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-header">
+              <h3>Distribuição por carteira</h3>
+              <a href="./accounts.html" class="btn btn-secondary" style="padding: 8px 12px; font-size: 0.8rem;">Gerenciar</a>
+            </div>
+            <div class="mini-list" id="accountDistributionList" style="margin-top: 10px;"></div>
+          </article>
+        </div>
+
+        <div class="right-grid">
+          <article class="card goal-card">
+            <div class="card-header">
+              <div>
+                <h3 id="goalHighlightTitle">Nenhuma meta cadastrada</h3>
+                <div class="muted-light" style="font-size: 0.85rem;" id="goalHighlightDeadline">-</div>
+              </div>
+              <span class="pill pill-light" id="goalHighlightProgress">0% concluído</span>
+            </div>
+            <div class="amount-lg amount-light masked" id="goalHighlightAmount">R$ 0,00 / R$ 0,00</div>
+            <div class="progress progress-dark">
+              <span id="goalHighlightBar" style="width: 0%;"></span>
+            </div>
+            <div class="goal-stats">
+              <div class="goal-stat">
+                <div class="muted-light" style="font-size: 0.8rem;">Faltam</div>
+                <strong class="masked goal-stat-value" id="goalHighlightMissing">R$ 0,00</strong>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-header">
+              <h3>Resumo de vencimentos</h3>
+            </div>
+            <div class="summary-stack" style="margin-bottom: 18px;">
+              <div class="summary-card">
+                <div class="summary-header"><h3>Contas pendentes</h3></div>
+                <div class="amount-lg masked" id="overviewPendingBills">R$ 0,00</div>
+              </div>
+              <div class="summary-card">
+                <div class="summary-header"><h3>Contas pagas</h3></div>
+                <div class="amount-lg masked" id="overviewPaidBills">R$ 0,00</div>
+              </div>
+            </div>
+            <div class="transactions" id="dueBillsList"></div>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <article class="card">
+          <div class="card-header">
+            <h3>Transações recentes</h3>
+          </div>
+          <div class="transactions" id="recentTransactionsList"></div>
+        </article>
+      </section>
+
+      <div class="mobile-nav">
+        <a href="../index.html">Home</a>
+        <a href="./overview.html">Geral</a>
+        <a href="./transactions.html">Fluxo</a>
+        <a href="./accounts.html">Conta</a>
+        <a href="./goals.html">Meta</a>
+      </div>
+    </main>
+  </div>
+
+  <button class="fab" id="fab" type="button">+</button>
+
+  <script src="../js/shared/utils.js"></script>
+  <script src="../js/shared/finance.js"></script>
+  <script src="../js/features/dashboard/dashboard.js"></script>
+</body>
+</html>

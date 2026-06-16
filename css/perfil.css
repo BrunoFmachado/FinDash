@@ -1,0 +1,179 @@
+.perfil-avatar-wrap {
+  text-align: center;
+}
+ 
+.perfil-avatar-grande {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2563eb, #14b8a6);
+  color: white;
+  display: grid;
+  place-items: center;
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 0 auto 16px;
+  box-shadow: 0 12px 30px rgba(37, 99, 235, 0.25);
+}
+ 
+.perfil-nome {
+  font-size: 1.1rem;
+  display: block;
+  margin-bottom: 4px;
+}
+ 
+.perfil-email {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+ 
+.perfil-info {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+ 
+.perfil-info-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.88rem;
+}
+ 
+.perfil-info-row span {
+  color: var(--muted);
+}
+ 
+/* ── Zona de perigo ────────────────────────────────────── */
+.zona-perigo {
+  border: 1.5px solid var(--danger-soft);
+}
+ 
+.zona-perigo h3 {
+  color: var(--danger);
+}
+ 
+.zona-perigo-desc {
+  font-size: 0.88rem;
+  color: var(--muted);
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+ 
+.btn-excluir {
+  width: 100%;
+  background: var(--danger-soft);
+  color: var(--danger);
+  border: 1.5px solid #fca5a5;
+  font-weight: 700;
+}
+ 
+.btn-excluir:hover {
+  background: #fecaca;
+}
+ 
+/* ── Mensagens de feedback ─────────────────────────────── */
+.msg-form,
+.msg-excluir,
+.msg-modal {
+  font-size: 0.85rem;
+  text-align: center;
+  min-height: 18px;
+  margin-top: 10px;
+}
+
+
+.btn-logout {
+  display: block;
+  margin: 16px auto 0;
+  background: transparent;
+  color: var(--primary);
+  border: 1.5px solid var(--primary);
+  font-weight: 600;
+  transition: background var(--transition), color var(--transition);
+}
+
+.btn-logout:hover {
+  background: var(--primary);
+  color: white;
+}
+ 
+.msg-sucesso { color: var(--success); }
+.msg-erro    { color: var(--danger);  }
+ 
+/* ── Modal de confirmação ──────────────────────────────── */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+}
+ 
+.modal-overlay.aberto {
+  display: flex;
+}
+ 
+.modal-box {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  padding: 36px;
+  max-width: 420px;
+  width: 90%;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+ 
+.modal-icone {
+  font-size: 3rem;
+  margin-bottom: 16px;
+}
+ 
+.modal-titulo {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: var(--danger);
+}
+ 
+.modal-desc {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 28px;
+  line-height: 1.6;
+}
+ 
+.modal-acoes {
+  display: flex;
+  gap: 12px;
+}
+ 
+.btn-confirmar-excluir {
+  flex: 1;
+  background: var(--danger);
+  color: white;
+  border: none;
+}
+ 
+.btn-confirmar-excluir:hover {
+  background: #dc2626;
+}
+ 
+/* ── Topbar ────────────────────────────────────────────── */
+.perfil-topbar-profile {
+  border-radius: 99px;
+}
+ 
+.perfil-topbar-email {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+ 
+.modal-campo-senha {
+  margin-bottom: 24px;
+  text-align: left;
+}

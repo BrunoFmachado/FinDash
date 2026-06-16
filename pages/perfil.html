@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinDash — Meu Perfil</title>
+
+  <link rel="stylesheet" href="../css/variables.css" />
+  <link rel="stylesheet" href="../css/globals.css" />
+  <link rel="stylesheet" href="../css/layout.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/forms.css" />
+  <link rel="stylesheet" href="../css/perfil.css" />
+</head>
+<body>
+  <div class="app" id="app">
+
+     <aside class="sidebar">
+      <div>
+        <div class="brand">
+          <div class="brand-icon">F</div>
+          <div>
+            <h1>FinDash</h1>
+            <span>controle financeiro</span>
+          </div>
+        </div>
+
+        <nav class="nav-group">
+          <div class="nav-label">Principal</div>
+
+          <a class="nav-item" href="./home.html">
+            <span>Dashboard</span>
+          </a>
+
+          <a class="nav-item" href="./overview.html">
+            <span>Visão Geral</span>
+          </a>
+
+          <a class="nav-item " href="./accounts.html">
+            <span>Carteiras</span>
+          </a>
+
+          <a class="nav-item active" href="./transactions.html">
+            <span>Transações</span>
+       
+          </a>
+
+          <div class="nav-label">Gestão</div>
+
+          <a class="nav-item" href="./goals.html">
+            <span>Metas</span>
+          </a>
+
+          <a class="nav-item" href="./bills.html">
+            <span>Vencimentos</span>
+          </a>
+        </nav>
+      </div>
+    </aside>
+
+    <main class="main">
+
+      <header class="topbar">
+        <div>
+          <h2>Meu Perfil</h2>
+          <p class="page-subtitle">Gerencie suas informações pessoais e configurações da conta.</p>
+        </div>
+        <div class="top-actions">
+          <div class="profile perfil-topbar-profile">
+            <div class="profile-avatar" id="profileAvatar">--</div>
+            <div>
+              <strong id="profileName">Carregando...</strong>
+              <div class="perfil-topbar-email" id="profileEmail"></div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="dashboard-grid">
+
+        <div class="left-grid">
+          <article class="card">
+            <div class="card-header">
+              <h3>Editar informações</h3>
+            </div>
+
+            <form id="formPerfil" class="form-grid">
+              <div class="form-group form-group-full">
+                <label for="inputNome">Nome completo</label>
+                <input type="text" id="inputNome" placeholder="Seu nome completo" required />
+              </div>
+
+              <div class="form-group form-group-full">
+                <label for="inputEmail">E-mail</label>
+                <input type="email" id="inputEmail" placeholder="seu@email.com" required />
+              </div>
+
+              <div class="form-group">
+                <label for="inputSenha">Nova senha</label>
+                <input type="password" id="inputSenha" placeholder="Deixe em branco para manter" />
+              </div>
+
+              <div class="form-group">
+                <label for="inputConfirmarSenha">Confirmar nova senha</label>
+                <input type="password" id="inputConfirmarSenha" placeholder="Repita a nova senha" />
+              </div>
+
+              <div class="form-actions form-group-full">
+                <button class="btn btn-primary" type="submit" id="btnSalvar">Salvar alterações</button>
+                <button class="btn btn-secondary" type="reset">Cancelar</button>
+              </div>
+
+              <p id="mensagemForm" class="msg-form form-group-full"></p>
+              
+            </form>
+
+          <button class="btn btn-logout" id="btnLogout" type="button">Sair da conta</button>
+          
+        </article>
+        </div>
+
+
+        <div class="right-grid">
+
+          <article class="card perfil-avatar-wrap">
+            <div class="perfil-avatar-grande" id="avatarGrande">--</div>
+            <strong class="perfil-nome" id="nomeGrande">---</strong>
+            <span class="perfil-email" id="emailGrande">---</span>
+
+            <div class="perfil-info">
+              <div class="perfil-info-row">
+                <span>Membro desde</span>
+                <strong id="membroDesde">---</strong>
+              </div>
+            </div>
+          </article>
+
+          <article class="card zona-perigo">
+            <div class="card-header">
+             
+            </div>
+
+            <p class="zona-perigo-desc">
+              Ao excluir sua conta, <strong>todos os seus dados serão permanentemente
+              removidos</strong>, incluindo contas, transações, metas e vencimentos.
+              Essa ação não pode ser desfeita.
+            </p>
+
+            <button class="btn btn-excluir" id="btnExcluir" type="button">
+               Excluir minha conta
+            </button>
+
+            <p id="mensagemExcluir" class="msg-excluir"></p>
+          </article>
+
+        </div>
+      </section>
+
+      <div id="modalExcluir" class="modal-overlay">
+        <div class="modal-box">
+          <div class="modal-icone">⚠️</div>
+          <h3 class="modal-titulo">Excluir conta permanentemente?</h3>
+          <p class="modal-desc">
+            Digite sua senha para confirmar. Essa ação é <strong>irreversível</strong>.
+          </p>
+
+          <div class="form-group modal-campo-senha">
+            <label for="senhaConfirmacao">Sua senha atual</label>
+            <input type="password" id="senhaConfirmacao" placeholder="Digite sua senha" />
+          </div>
+
+          <div class="modal-acoes">
+            <button class="btn btn-secondary" id="btnCancelarModal" type="button" style="flex:1;">
+              Cancelar
+            </button>
+            <button class="btn btn-confirmar-excluir" id="btnConfirmarExcluir" type="button">
+              Confirmar exclusão
+            </button>
+          </div>
+
+          <p id="mensagemModal" class="msg-modal msg-erro"></p>
+        </div>
+      </div>
+
+      <div class="mobile-nav">
+        <a href="./home.html">🏠</a>
+        <a href="./overview.html">📊</a>
+        <a href="./transactions.html">🧾</a>
+        <a href="./accounts.html">💳</a>
+        <a href="./goals.html">🎯</a>
+      </div>
+    </main>
+  </div>
+
+  
+
+  <script>
+    const API     = 'http://localhost:3000';
+    const token   = localStorage.getItem('token');
+    const usuario = JSON.parse(localStorage.getItem('usuario') || 'null');
+
+
+
+    if (!token || !usuario) window.location.href = '../index.html';
+
+    function headers() {
+      return {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      };
+    }
+
+    function preencherTela(u) {
+      const partes   = (u.nome || '').trim().split(' ');
+      const iniciais = partes.slice(0, 2).map(p => p[0]?.toUpperCase() || '').join('');
+      const primeiro = partes[0] || 'Usuário';
+
+      document.getElementById('profileAvatar').textContent = iniciais;
+      document.getElementById('profileName').textContent   = primeiro;
+      document.getElementById('profileEmail').textContent  = u.email || '';
+      document.getElementById('avatarGrande').textContent  = iniciais;
+      document.getElementById('nomeGrande').textContent    = u.nome  || '';
+      document.getElementById('emailGrande').textContent   = u.email || '';
+      document.getElementById('inputNome').value           = u.nome  || '';
+      document.getElementById('inputEmail').value          = u.email || '';
+    }
+
+    preencherTela(usuario);
+
+    document.getElementById('formPerfil').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const nome    = document.getElementById('inputNome').value.trim();
+      const email   = document.getElementById('inputEmail').value.trim();
+      const senha   = document.getElementById('inputSenha').value;
+      const confirmar = document.getElementById('inputConfirmarSenha').value;
+      const msg     = document.getElementById('mensagemForm');
+      const btn     = document.getElementById('btnSalvar');
+
+      msg.className = 'msg-form form-group-full';
+
+      if (senha && senha !== confirmar) {
+        msg.textContent = 'As senhas não coincidem.';
+        msg.classList.add('msg-erro');
+        return;
+      }
+      if (senha && senha.length < 6) {
+        msg.textContent = 'A senha deve ter no mínimo 6 caracteres.';
+        msg.classList.add('msg-erro');
+        return;
+      }
+
+      const body = { nome, email };
+      if (senha) body.senha = senha;
+
+      btn.textContent = 'Salvando...';
+      btn.disabled    = true;
+
+      try {
+        const resposta = await fetch(`${API}/api/users/${usuario.id}`, {
+          method: 'PUT', headers: headers(), body: JSON.stringify(body)
+        });
+        const dados = await resposta.json();
+
+        if (resposta.ok) {
+          const atualizado = { ...usuario, nome, email };
+          localStorage.setItem('usuario', JSON.stringify(atualizado));
+          msg.textContent = '✅ Dados atualizados com sucesso!';
+          msg.classList.add('msg-sucesso');
+          preencherTela(atualizado);
+          document.getElementById('inputSenha').value         = '';
+          document.getElementById('inputConfirmarSenha').value = '';
+        } else {
+          msg.textContent = dados.mensagem || 'Erro ao atualizar.';
+          msg.classList.add('msg-erro');
+        }
+      } catch {
+        msg.textContent = 'Erro de conexão com o servidor.';
+        msg.classList.add('msg-erro');
+      } finally {
+        btn.textContent = 'Salvar alterações';
+        btn.disabled    = false;
+      }
+    });
+
+    const modal = document.getElementById('modalExcluir');
+
+    document.getElementById('btnExcluir').addEventListener('click', () => {
+      modal.classList.add('aberto');
+      document.getElementById('senhaConfirmacao').value    = '';
+      document.getElementById('mensagemModal').textContent = '';
+    });
+
+    document.getElementById('btnCancelarModal').addEventListener('click', () => {
+      modal.classList.remove('aberto');
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) modal.classList.remove('aberto');
+    });
+
+    document.getElementById('btnConfirmarExcluir').addEventListener('click', async () => {
+      const senha    = document.getElementById('senhaConfirmacao').value;
+      const msgModal = document.getElementById('mensagemModal');
+      const btn      = document.getElementById('btnConfirmarExcluir');
+
+      if (!senha) { msgModal.textContent = 'Digite sua senha para confirmar.'; return; }
+
+      btn.textContent = 'Excluindo...';
+      btn.disabled    = true;
+
+      try {
+        const resposta = await fetch(`${API}/api/users/${usuario.id}`, {
+          method: 'DELETE', headers: headers(), body: JSON.stringify({ senha })
+        });
+        const dados = await resposta.json();
+
+        if (resposta.ok) {
+          localStorage.clear();
+          window.location.href = '../index.html';
+        } else {
+          msgModal.textContent = dados.mensagem || 'Erro ao excluir conta.';
+          btn.textContent      = 'Confirmar exclusão';
+          btn.disabled         = false;
+        }
+      } catch {
+        msgModal.textContent = 'Erro de conexão com o servidor.';
+        btn.textContent      = 'Confirmar exclusão';
+        btn.disabled         = false;
+      }
+    });
+
+  document.getElementById('btnLogout').addEventListener('click', () => {
+  localStorage.removeItem('token');
+  localStorage.removeItem('usuario');
+  window.location.href = '../index.html';
+});
+
+  </script>
+
+
+</body>
+</html>

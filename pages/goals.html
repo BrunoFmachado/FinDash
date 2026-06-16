@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinDash - Metas</title>
+
+  <link rel="stylesheet" href="../css/variables.css" />
+  <link rel="stylesheet" href="../css/globals.css" />
+  <link rel="stylesheet" href="../css/layout.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/forms.css" />
+  <link rel="stylesheet" href="../css/dashboard.css" />
+  <link rel="stylesheet" href="../css/tables.css" />
+</head>
+<body id="appBody">
+  <div class="app" id="app">
+    <aside class="sidebar">
+      <div>
+        <div class="brand">
+          <div class="brand-icon">F</div>
+          <div>
+            <h1>FinDash</h1>
+            <span>controle financeiro</span>
+          </div>
+        </div>
+
+        <nav class="nav-group">
+          <div class="nav-label">Principal</div>
+          <a class="nav-item" href="./home.html">
+            <span>Dashboard</span>
+          </a>
+          <a class="nav-item" href="./overview.html">
+            <span>Visão Geral</span>
+          </a>
+          <a class="nav-item" href="./accounts.html">
+            <span>Carteiras</span>
+          </a>
+          <a class="nav-item" href="./transactions.html">
+            <span>Transações</span>
+           
+          </a>
+
+          <div class="nav-label">Gestão</div>
+          <a class="nav-item active" href="./goals.html">
+            <span>Metas</span>
+          </a>
+          <a class="nav-item" href="./bills.html">
+            <span>Vencimentos</span>
+          </a>
+        </nav>
+      </div>
+    </aside>
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <h2>Metas financeiras</h2>
+          <p class="page-subtitle">Acompanhe objetivos, aportes e progresso.</p>
+        </div>
+
+        <div class="top-actions">
+          <button
+  id="toggleBalance"
+  class="icon-btn"
+  type="button"
+  title="Ocultar valores">
+  <span id="eyeContainer"></span>
+</button>
+          <a class="profile" href="./perfil.html" style="text-decoration: none; color: inherit;">
+            <div class="profile-avatar" id="profileAvatar">--</div>
+            <div>
+              <strong id="profileName">Carregando...</strong>
+              <div class="muted" style="font-size: 0.8rem;">Minha conta</div>
+            </div>
+          </a>
+        </div>
+      </header>
+
+      <section class="dashboard-grid">
+        <div class="left-grid">
+          <article class="card">
+            <div class="card-header">
+              <h3>Nova meta</h3>
+            </div>
+
+            <form id="goalForm" class="form-grid">
+              <div class="form-group form-group-full">
+                <label for="goalTitle">Nome da meta</label>
+                <input type="text" id="goalTitle" placeholder="Ex.: Reserva de emergencia" required />
+              </div>
+
+              <div class="form-group">
+                <label for="goalTarget">Valor alvo</label>
+                <input type="number" id="goalTarget" step="0.01" min="0" placeholder="0,00" required />
+              </div>
+
+              <div class="form-group">
+                <label for="goalCurrent">Valor atual</label>
+                <input type="number" id="goalCurrent" step="0.01" min="0" placeholder="0,00" required />
+              </div>
+
+              <div class="form-group">
+                <label for="goalMonthlyContribution">Aporte mensal</label>
+                <input type="number" id="goalMonthlyContribution" step="0.01" min="0" placeholder="0,00" />
+              </div>
+
+              <div class="form-group">
+                <label for="goalDeadline">Prazo</label>
+                <input type="date" id="goalDeadline" />
+              </div>
+
+              <div class="form-actions form-group-full">
+                <button class="btn btn-primary" type="submit">Salvar meta</button>
+                <button class="btn btn-secondary" type="reset">Limpar</button>
+              </div>
+            </form>
+          </article>
+        </div>
+
+        <div class="right-grid">
+          <article class="card">
+            <div class="card-header">
+              <h3>Resumo</h3>
+            </div>
+
+            <div class="summary-stack">
+              <div class="summary-card">
+                <div class="summary-header"><h3>Metas ativas</h3></div>
+                <div class="amount-lg" id="goalsCount">0</div>
+              </div>
+
+              <div class="summary-card">
+                <div class="summary-header"><h3>Valor acumulado</h3></div>
+                <div class="amount-lg masked" id="goalsCurrentTotal">R$ 0,00</div>
+              </div>
+
+              <div class="summary-card">
+                <div class="summary-header"><h3>Total planejado</h3></div>
+                <div class="amount-lg masked" id="goalsTargetTotal">R$ 0,00</div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <article class="card">
+          <div class="card-header">
+            <h3>Acompanhamento</h3>
+          </div>
+
+          <div id="goalsList" class="transactions"></div>
+
+          <div id="goalsEmptyState" class="empty-state">
+            Nenhuma meta cadastrada ate o momento.
+          </div>
+        </article>
+      </section>
+
+      <div class="mobile-nav">
+        <a href="../index.html">Home</a>
+        <a href="./overview.html">Geral</a>
+        <a href="./transactions.html">Fluxo</a>
+        <a href="./accounts.html">Conta</a>
+        <a href="./goals.html">Meta</a>
+      </div>
+    </main>
+  </div>
+
+  <script src="../js/shared/utils.js"></script>
+  <script src="../js/shared/finance.js"></script>
+  <script src="../js/features/goals/goals.js"></script>
+</body>
+</html>

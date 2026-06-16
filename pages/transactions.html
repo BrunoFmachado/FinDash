@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinDash - Historico de Transacoes</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../css/variables.css" />
+  <link rel="stylesheet" href="../css/globals.css" />
+  <link rel="stylesheet" href="../css/layout.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/forms.css" />
+  <link rel="stylesheet" href="../css/tables.css" />
+</head>
+<body id="appBody">
+  <div class="app" id="app">
+     <aside class="sidebar">
+      <div>
+        <div class="brand">
+          <div class="brand-icon">F</div>
+          <div>
+            <h1>FinDash</h1>
+            <span>controle financeiro</span>
+          </div>
+        </div>
+
+        <nav class="nav-group">
+          <div class="nav-label">Principal</div>
+
+          <a class="nav-item" href="./home.html">
+            <span>Dashboard</span>
+          </a>
+
+          <a class="nav-item" href="./overview.html">
+            <span>Visão Geral</span>
+          </a>
+
+          <a class="nav-item " href="./accounts.html">
+            <span>Carteiras</span>
+          </a>
+
+          <a class="nav-item active" href="./transactions.html">
+            <span>Transações</span>
+       
+          </a>
+
+          <div class="nav-label">Gestão</div>
+
+          <a class="nav-item" href="./goals.html">
+            <span>Metas</span>
+          </a>
+
+          <a class="nav-item" href="./bills.html">
+            <span>Vencimentos</span>
+          </a>
+        </nav>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <h2 style="font-size: 1.6rem; font-weight: 800;">Historico</h2>
+          <p class="muted page-subtitle">Cadastre receitas, despesas e acompanhe o previsto x realizado.</p>
+        </div>
+
+        <div class="top-actions">
+          <button class="btn btn-secondary" id="exportTransactions" style="border-radius: 99px;" type="button">Exportar CSV</button>
+          <button
+  id="toggleBalance"
+  class="icon-btn"
+  type="button"
+  title="Ocultar valores"
+  style="border-radius:50%;">
+  <span id="eyeContainer"></span>
+</button>
+          <a class="profile" href="./perfil.html" style="text-decoration: none; color: inherit;">
+            <div class="profile-avatar" id="profileAvatar">--</div>
+            <div>
+              <strong id="profileName">Carregando...</strong>
+              <div class="muted" style="font-size: 0.8rem;">Minha conta</div>
+            </div>
+          </a>
+        </div>
+      </header>
+
+      <section style="margin-bottom: 22px;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 22px;">
+          <article class="summary-card">
+            <div class="summary-header"><h3>Receitas</h3></div>
+            <div class="amount-lg masked" id="transactionsIncomeTotal" style="color: var(--success);">R$ 0,00</div>
+            <div class="meta-row"><span>Realizado no periodo</span></div>
+          </article>
+
+          <article class="summary-card">
+            <div class="summary-header"><h3>Despesas</h3></div>
+            <div class="amount-lg masked" id="transactionsExpenseTotal" style="color: var(--danger);">R$ 0,00</div>
+            <div class="meta-row"><span>Realizado no periodo</span></div>
+          </article>
+
+          <article class="summary-card">
+            <div class="summary-header"><h3>Balanco</h3></div>
+            <div class="amount-lg masked" id="transactionsBalanceTotal">R$ 0,00</div>
+            <div class="meta-row"><span>Receitas menos despesas</span></div>
+          </article>
+
+          <article class="summary-card">
+            <div class="summary-header"><h3>Previsto</h3></div>
+            <div class="amount-lg masked" id="transactionsPredictedBalance">R$ 0,00</div>
+            <div class="meta-row"><span>Saldo previsto no filtro</span></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="dashboard-grid">
+        <div class="left-grid">
+          <article class="card">
+            <div class="card-header">
+              <h3>Nova transacao</h3>
+            </div>
+
+            <form id="transactionForm" class="form-grid">
+              <div class="form-group">
+                <label for="transactionType">Tipo</label>
+                <select id="transactionType" required>
+                  <option value="">Selecione</option>
+                  <option value="receita">Receita</option>
+                  <option value="despesa">Despesa</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="transactionStatus">Status</label>
+                <select id="transactionStatus" required>
+                  <option value="realizado">Realizado</option>
+                  <option value="previsto">Previsto</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="transactionTitle">Titulo</label>
+                <input type="text" id="transactionTitle" placeholder="Ex.: Salario, mercado, aluguel" required />
+              </div>
+
+              <div class="form-group">
+                <label for="transactionCategory">Categoria</label>
+                <input type="text" id="transactionCategory" placeholder="Ex.: Moradia, Alimentacao" />
+              </div>
+
+              <div class="form-group">
+                <label for="transactionAmount">Valor realizado</label>
+                <input type="number" id="transactionAmount" step="0.01" min="0" placeholder="0,00" required />
+              </div>
+
+              <div class="form-group">
+                <label for="transactionPredicted">Valor previsto</label>
+                <input type="number" id="transactionPredicted" step="0.01" min="0" placeholder="0,00" />
+              </div>
+
+              <div class="form-group">
+                <label for="transactionAccount">Conta</label>
+                <select id="transactionAccount" required>
+                  <option value="">Selecione uma conta</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="transactionDate">Data</label>
+                <input type="date" id="transactionDate" required />
+              </div>
+
+              <div class="form-group form-group-full">
+                <label for="transactionDescription">Descricao</label>
+                <textarea id="transactionDescription" rows="3" placeholder="Observacoes opcionais"></textarea>
+              </div>
+
+              <div class="form-actions form-group-full">
+                <button class="btn btn-primary" type="submit">Salvar transacao</button>
+                <button class="btn btn-secondary" type="reset">Limpar</button>
+              </div>
+            </form>
+          </article>
+        </div>
+
+        <div class="right-grid">
+          <article class="card">
+            <div class="card-header">
+              <h3>Filtros</h3>
+            </div>
+
+            <form id="transactionFilterForm" class="form-grid">
+              <div class="form-group">
+                <label for="filterType">Tipo</label>
+                <select id="filterType">
+                  <option value="todos">Todos</option>
+                  <option value="receita">Receitas</option>
+                  <option value="despesa">Despesas</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="filterMonth">Mes</label>
+                <input type="month" id="filterMonth" />
+              </div>
+
+              <div class="form-group">
+                <label for="filterDateStart">Inicio</label>
+                <input type="date" id="filterDateStart" />
+              </div>
+
+              <div class="form-group">
+                <label for="filterDateEnd">Fim</label>
+                <input type="date" id="filterDateEnd" />
+              </div>
+
+              <div class="form-actions form-group-full">
+                <button class="btn btn-primary" type="submit">Aplicar</button>
+                <button class="btn btn-secondary" type="reset">Limpar</button>
+              </div>
+            </form>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <article class="card">
+          <div class="card-header">
+            <h3>Historico detalhado</h3>
+          </div>
+
+          <div class="table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Tipo</th>
+                  <th>Titulo</th>
+                  <th>Categoria</th>
+                  <th>Conta</th>
+                  <th>Data</th>
+                  <th>Status</th>
+                  <th>Previsto</th>
+                  <th>Realizado</th>
+                  <th>Acoes</th>
+                </tr>
+              </thead>
+              <tbody id="transactionsTableBody"></tbody>
+            </table>
+          </div>
+
+          <div id="transactionsEmptyState" class="empty-state">
+            Nenhuma transacao cadastrada ate o momento.
+          </div>
+        </article>
+      </section>
+
+      <div class="mobile-nav">
+        <a href="../index.html">Home</a>
+        <a href="./overview.html">Geral</a>
+        <a href="./transactions.html">Fluxo</a>
+        <a href="./accounts.html">Conta</a>
+        <a href="./goals.html">Meta</a>
+      </div>
+    </main>
+  </div>
+
+  <script src="../js/shared/utils.js"></script>
+  <script src="../js/shared/finance.js"></script>
+  <script src="../js/features/transaction/transaction.js"></script>
+</body>
+</html>

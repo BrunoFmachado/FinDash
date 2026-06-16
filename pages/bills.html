@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinDash - Vencimentos</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../css/variables.css" />
+  <link rel="stylesheet" href="../css/globals.css" />
+  <link rel="stylesheet" href="../css/layout.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/forms.css" />
+  <link rel="stylesheet" href="../css/tables.css" />
+</head>
+<body id="appBody">
+  <div class="app" id="app">
+    <aside class="sidebar">
+      <div>
+        <div class="brand">
+          <div class="brand-icon">F</div>
+          <div>
+            <h1>FinDash</h1>
+            <span>controle financeiro</span>
+          </div>
+        </div>
+
+        <nav class="nav-group">
+          <div class="nav-label">Principal</div>
+          <a class="nav-item" href="./home.html">
+            <span>Dashboard</span>
+          </a>
+          <a class="nav-item" href="./overview.html">
+            <span>Visão Geral</span>
+          </a>
+          <a class="nav-item" href="./accounts.html">
+            <span>Carteiras</span>
+          </a>
+          <a class="nav-item" href="./transactions.html">
+            <span>Transações</span>
+          </a>
+
+          <div class="nav-label">Gestão</div>
+          <a class="nav-item" href="./goals.html">
+            <span>Metas</span>
+          </a>
+          <a class="nav-item active" href="./bills.html">
+            <span>Vencimentos</span>
+          </a>
+        </nav>
+      </div>
+    </aside>
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <h2 style="font-size: 1.5rem;">Contas a pagar</h2>
+          <p class="muted page-subtitle">Cadastre vencimentos, acompanhe pendências e marque contas como pagas.</p>
+        </div>
+
+        <div class="top-actions">
+          <button
+  id="toggleBalance"
+  class="icon-btn"
+  type="button"
+  title="Ocultar valores">
+  <span id="eyeContainer"></span>
+</button>
+          <a class="profile" href="./perfil.html" style="text-decoration: none; color: inherit;">
+            <div class="profile-avatar" id="profileAvatar">--</div>
+            <div>
+              <strong id="profileName">Carregando...</strong>
+              <div class="muted" style="font-size: 0.8rem;">Minha conta</div>
+            </div>
+          </a>
+        </div>
+      </header>
+
+      <section class="dashboard-grid">
+        <div class="left-grid">
+          <article class="card">
+            <div class="card-header">
+              <h3>Novo vencimento</h3>
+            </div>
+
+            <form id="billForm" class="form-grid">
+              <div class="form-group form-group-full">
+                <label for="billTitle">Título</label>
+                <input type="text" id="billTitle" name="billTitle" placeholder="Ex.: Energia elétrica" required />
+              </div>
+
+              <div class="form-group">
+                <label for="billAmount">Valor</label>
+                <input type="number" id="billAmount" name="billAmount" step="0.01" min="0" placeholder="0,00" required />
+              </div>
+
+              <div class="form-group">
+                <label for="billDueDate">Vencimento</label>
+                <input type="date" id="billDueDate" name="billDueDate" required />
+              </div>
+
+              <div class="form-group">
+                <label for="billStatus">Status</label>
+                <select id="billStatus" name="billStatus" required>
+                  <option value="pendente">Pendente</option>
+                  <option value="pago">Pago</option>
+                </select>
+              </div>
+
+              <div class="form-actions form-group-full">
+                <button class="btn btn-primary" type="submit">Salvar vencimento</button>
+                <button class="btn btn-secondary" type="reset">Limpar</button>
+              </div>
+            </form>
+          </article>
+        </div>
+
+        <div class="right-grid">
+          <article class="card">
+            <div class="card-header">
+              <h3>Resumo</h3>
+            </div>
+
+            <div class="summary-stack">
+              <div class="summary-card">
+                <div class="summary-header"><h3>Em aberto</h3></div>
+                <div class="amount-lg masked" id="billsPendingTotal">R$ 0,00</div>
+              </div>
+
+              <div class="summary-card">
+                <div class="summary-header"><h3>Quantidade pendente</h3></div>
+                <div class="amount-lg" id="billsPendingCount">0</div>
+              </div>
+
+              <div class="summary-card">
+                <div class="summary-header"><h3>Pagas</h3></div>
+                <div class="amount-lg masked" id="billsPaidTotal">R$ 0,00</div>
+              </div>
+
+              <div class="summary-card">
+                <div class="summary-header"><h3>Quantidade paga</h3></div>
+                <div class="amount-lg" id="billsPaidCount">0</div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <article class="card">
+          <div class="card-header">
+            <h3>Lista de vencimentos</h3>
+          </div>
+
+          <div class="table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Título</th>
+                  <th>Valor</th>
+                  <th>Vencimento</th>
+                  <th>Status</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="billsTableBody"></tbody>
+            </table>
+          </div>
+
+          <div id="billsEmptyState" class="empty-state">
+            Nenhum vencimento cadastrado até o momento.
+          </div>
+        </article>
+      </section>
+
+      <div class="mobile-nav">
+        <a href="../index.html">Home</a>
+        <a href="./overview.html">Geral</a>
+        <a href="./transactions.html">Fluxo</a>
+        <a href="./accounts.html">Conta</a>
+        <a href="./goals.html">Meta</a>
+      </div>
+    </main>
+  </div>
+
+  <script src="../js/shared/utils.js"></script>
+  <script src="../js/shared/finance.js"></script>
+  <script src="../js/features/bills/bills.js"></script>
+</body>
+</html>
